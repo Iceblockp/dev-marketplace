@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  role         String   @default("admin")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model Project {
+  id              Int      @id @default(autoincrement())
+  title           String
+  description     String
+  longDescription String?  @map("long_description")
+  price           Int
+  runningCost     Int      @map("running_cost")
+  category        String
+  tech            String[]
+  features        String[]
+  complexity      String
+  setupTime       String   @map("setup_time")
+  demoUrl         String?  @map("demo_url")
+  status          String   @default("draft")
+  sales           Int      @default(0)
+  revenue         Int      @default(0)
+  images          String[]
+  techSpecs       Json?    @map("tech_specs")
+  requirements    Json?
+  included        String[]
+  workflow        String[]
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("projects")
+}
+
+model Inquiry {
+  id          Int       @id @default(autoincrement())
+  name        String
+  email       String
+  company     String?
+  projectType String?   @map("project_type")
+  budget      String?
+  message     String
+  status      String    @default("new")
+  lastContact DateTime? @map("last_contact")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  @@map("inquiries")
+}
