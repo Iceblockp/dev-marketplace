@@ -1,26 +1,32 @@
-"use client"
+"use client";
 
-import React from "react"
+import React from "react";
 
-import { useState } from "react"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Search } from "lucide-react"
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Search } from "lucide-react";
 
 interface SearchFiltersProps {
   onFilter: (filters: {
-    search: string
-    category: string
-    priceRange: string
-    complexity: string
-  }) => void
+    search: string;
+    category: string;
+    priceRange: string;
+    complexity: string;
+  }) => void;
 }
 
 export function SearchFilters({ onFilter }: SearchFiltersProps) {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [categoryFilter, setCategoryFilter] = useState("all")
-  const [priceFilter, setPriceFilter] = useState("all")
-  const [complexityFilter, setComplexityFilter] = useState("all")
+  const [searchTerm, setSearchTerm] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("all");
+  const [priceFilter, setPriceFilter] = useState("all");
+  const [complexityFilter, setComplexityFilter] = useState("all");
 
   const handleFilterChange = () => {
     onFilter({
@@ -28,15 +34,23 @@ export function SearchFilters({ onFilter }: SearchFiltersProps) {
       category: categoryFilter,
       priceRange: priceFilter,
       complexity: complexityFilter,
-    })
-  }
+    });
+  };
 
   // Apply filters whenever any filter changes
   React.useEffect(() => {
-    handleFilterChange()
-  }, [searchTerm, categoryFilter, priceFilter, complexityFilter])
+    handleFilterChange();
+  }, [searchTerm, categoryFilter, priceFilter, complexityFilter]);
 
-  const categories = ["E-Commerce", "Dashboard", "Backend", "CRM", "Education", "Social"]
+  const categories = [
+    "E-Commerce",
+    "Portfolio",
+    "Dashboard",
+    "Backend",
+    "CRM",
+    "Education",
+    "Social",
+  ];
 
   return (
     <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
@@ -71,7 +85,8 @@ export function SearchFilters({ onFilter }: SearchFiltersProps) {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Prices</SelectItem>
-            <SelectItem value="1000-2000">$1,000 - $2,000</SelectItem>
+            <SelectItem value="0-100">$0 - $100</SelectItem>
+            <SelectItem value="100-1000">$100 - $1000</SelectItem>
             <SelectItem value="2000-3000">$2,000 - $3,000</SelectItem>
             <SelectItem value="3000-5000">$3,000 - $5,000</SelectItem>
             <SelectItem value="5000">$5,000+</SelectItem>
@@ -92,7 +107,7 @@ export function SearchFilters({ onFilter }: SearchFiltersProps) {
         </Select>
       </div>
     </div>
-  )
+  );
 }
 
-export default SearchFilters
+export default SearchFilters;

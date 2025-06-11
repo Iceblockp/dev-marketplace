@@ -1,52 +1,58 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Eye, EyeOff, LogIn } from "lucide-react"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Eye, EyeOff, LogIn } from "lucide-react";
 
 export default function AdminLogin() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-  })
-  const [showPassword, setShowPassword] = useState(false)
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
-  const router = useRouter()
+  });
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError("")
-    setLoading(true)
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
     try {
       const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-      })
+      });
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (response.ok) {
-        router.push("/admin")
+        router.push("/admin");
       } else {
-        setError(data.error || "Login failed")
+        setError(data.error || "Login failed");
       }
     } catch (error) {
-      setError("Network error. Please try again.")
+      setError("Network error. Please try again.");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-6">
@@ -55,8 +61,12 @@ export default function AdminLogin() {
           <div className="flex justify-center mb-4">
             <LogIn className="h-12 w-12 text-purple-400" />
           </div>
-          <CardTitle className="text-2xl font-bold text-white">Admin Login</CardTitle>
-          <CardDescription className="text-white/70">Sign in to access the admin dashboard</CardDescription>
+          <CardTitle className="text-2xl font-bold text-white">
+            Admin Login
+          </CardTitle>
+          <CardDescription className="text-white/70">
+            Sign in to access the admin dashboard
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -74,7 +84,9 @@ export default function AdminLogin() {
                 id="email"
                 type="email"
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
                 placeholder="admin@example.com"
                 required
@@ -90,7 +102,9 @@ export default function AdminLogin() {
                   id="password"
                   type={showPassword ? "text" : "password"}
                   value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
                   className="bg-white/5 border-white/10 text-white placeholder:text-white/40 pr-10"
                   placeholder="Enter your password"
                   required
@@ -102,7 +116,11 @@ export default function AdminLogin() {
                   className="absolute right-0 top-0 h-full px-3 text-white/60 hover:text-white"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
                 </Button>
               </div>
             </div>
@@ -118,8 +136,11 @@ export default function AdminLogin() {
 
           <div className="mt-6 text-center">
             <p className="text-white/60 text-sm">
-              Don't have an account?{" "}
-              <Link href="/admin/auth/register" className="text-purple-400 hover:text-purple-300">
+              Don&apos;t have an account?{" "}
+              <Link
+                href="/admin/auth/register"
+                className="text-purple-400 hover:text-purple-300"
+              >
                 Create admin account
               </Link>
             </p>
@@ -127,5 +148,5 @@ export default function AdminLogin() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
