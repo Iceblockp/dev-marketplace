@@ -10,7 +10,6 @@ const nextConfig = {
         },
       },
     },
-    serverComponentsExternalPackages: ['@prisma/client', '@prisma/extension-accelerate'],
   },
   eslint: {
     ignoreDuringBuilds: true,

@@ -1,22 +1,9 @@
 import { PrismaClient } from "@/generated/prisma";
-import { withAccelerate } from "@prisma/extension-accelerate";
 
-// Define a more flexible type for the global prisma instance
 const globalForPrisma = globalThis as unknown as {
-  prisma: any;
+  prisma: PrismaClient | undefined;
 };
 
-// Create a new PrismaClient if one doesn't exist in the global scope
-const prismaBase = globalForPrisma.prisma ?? new PrismaClient({
-  datasources: {
-    db: {
-      url: process.env.DATABASE_URL,
-    },
-  },
-});
+export const prisma = globalForPrisma.prisma ?? new PrismaClient();
 
-// Extend the PrismaClient with Accelerate
-export const prisma = prismaBase.$extends(withAccelerate());
-
-// Save the client instance to avoid multiple instances in development
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prismaBase;
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
