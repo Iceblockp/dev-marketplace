@@ -17,7 +17,7 @@ const Layout = ({ children }: Props) => {
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="text-2xl font-bold text-white mb-4">
-                Dev<span className="text-purple-400">Projects</span>
+                INNO<span className="text-purple-400">BYTEX</span>
               </div>
               <p className="text-white/60">
                 Premium development solutions for modern businesses.

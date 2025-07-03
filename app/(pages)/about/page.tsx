@@ -191,7 +191,7 @@ export default function AboutPage() {
       </section>
 
       {/* Stats Section */}
-      <section ref={statsRef} className="py-16 px-6 bg-black/20">
+      {/* <section ref={statsRef} className="py-16 px-6 bg-black/20">
         <div className="container mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -220,7 +220,7 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Values Section */}
       <section className="py-16 px-6">
@@ -396,7 +396,7 @@ export default function AboutPage() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-16 px-6 bg-black/20">
+      {/* <section className="py-16 px-6 bg-black/20">
         <div className="container mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -495,7 +495,7 @@ export default function AboutPage() {
             </Card>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <section className="py-16 px-6">

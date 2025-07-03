@@ -198,6 +198,7 @@ export default function ContactPage() {
                         <SelectItem value="SaaS Dashboard">
                           SaaS Dashboard
                         </SelectItem>
+                        <SelectItem value="Portfolio">Portfolio</SelectItem>
                         <SelectItem value="Custom Project">
                           Custom Project
                         </SelectItem>
@@ -221,19 +222,11 @@ export default function ContactPage() {
                         <SelectValue placeholder="Select budget range" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Under $1,000">
-                          Under $1,000
-                        </SelectItem>
-                        <SelectItem value="$1,000 - $2,500">
-                          $1,000 - $2,500
-                        </SelectItem>
-                        <SelectItem value="$2,500 - $5,000">
-                          $2,500 - $5,000
-                        </SelectItem>
-                        <SelectItem value="$5,000 - $10,000">
-                          $5,000 - $10,000
-                        </SelectItem>
-                        <SelectItem value="$10,000+">$10,000+</SelectItem>
+                        <SelectItem value="Under 20">Under $20</SelectItem>
+                        <SelectItem value="20 - 100">$20 - $100</SelectItem>
+                        <SelectItem value="100 - 300">$100 - $300</SelectItem>
+                        <SelectItem value="300 - 1000">$300 - $1000</SelectItem>
+                        <SelectItem value="1000+">$1000+</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>

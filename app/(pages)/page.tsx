@@ -132,36 +132,6 @@ export default function HomePage() {
     return () => ctx.revert();
   }, []);
 
-  const featuredProjects = [
-    {
-      id: 1,
-      title: "E-Commerce Platform",
-      description: "Full-stack e-commerce solution with admin dashboard",
-      price: "$2,999",
-      runningCost: "$50/month",
-      tech: ["Next.js", "Stripe", "PostgreSQL"],
-      category: "E-Commerce",
-    },
-    {
-      id: 2,
-      title: "SaaS Dashboard",
-      description: "Modern analytics dashboard with real-time data",
-      price: "$1,899",
-      runningCost: "$30/month",
-      tech: ["React", "Node.js", "MongoDB"],
-      category: "Dashboard",
-    },
-    {
-      id: 3,
-      title: "Mobile App Backend",
-      description: "Scalable API with authentication and real-time features",
-      price: "$1,599",
-      runningCost: "$25/month",
-      tech: ["Express", "Socket.io", "Redis"],
-      category: "Backend",
-    },
-  ];
-
   return (
     <>
       {/* Navigation */}
