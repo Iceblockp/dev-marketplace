@@ -2,8 +2,8 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { prisma } from "./prisma";
 
-const JWT_SECRET = process.env.JWT_SECRET!;
-const ADMIN_SECRET_CODE = process.env.ADMIN_SECRET_CODE!;
+const JWT_SECRET = process.env.NEXTAUTH_SECRET!;
+const ADMIN_SECRET_CODE = process.env.NEXTAUTH_SECRET_CODE!;
 
 export async function createAdminUser(
   email: string,
