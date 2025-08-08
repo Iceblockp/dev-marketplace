@@ -4,9 +4,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
+  DialogFooter,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import type { Project } from "@/types/project";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Button } from "../ui/button";
 
 interface ProjectPreviewProps {
   project: Project;
@@ -18,258 +21,248 @@ export function ProjectPreview({ project, onClose }: ProjectPreviewProps) {
     <Dialog open={true} onOpenChange={onClose}>
       <DialogContent className="bg-slate-900 border-white/10 text-white max-w-4xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Project Preview: {project.title}</DialogTitle>
-          <DialogDescription className="text-white/70">
-            Complete project information and details
+          <DialogTitle>Project Preview</DialogTitle>
+          <DialogDescription>
+            Preview how the project will appear to users
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-6">
-          {/* Basic Info */}
+          {/* Header */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <Badge variant="outline">{project.category}</Badge>
+              {project.price ? (
+                <Badge variant="default">
+                  ${project.price.toLocaleString()}
+                </Badge>
+              ) : (
+                <Badge variant="secondary">Idea Stage</Badge>
+              )}
+            </div>
+
+            <h2 className="text-2xl font-bold">{project.title}</h2>
+            <p className="text-muted-foreground">{project.shortDescription}</p>
+          </div>
+
+          {/* Cover Image */}
+          {project.coverImage && (
+            <div className="aspect-video rounded-md overflow-hidden bg-muted">
+              <img
+                src={project.coverImage}
+                alt={project.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          )}
+
+          {/* Business Details */}
           <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h3 className="text-white font-semibold mb-2">
-                Basic Information
-              </h3>
-              <div className="space-y-2 text-sm">
-                <p>
-                  <span className="text-white/60">Title:</span>{" "}
-                  <span className="text-white">{project.title}</span>
-                </p>
-                <p>
-                  <span className="text-white/60">Category:</span>{" "}
-                  <span className="text-white">{project.category}</span>
-                </p>
-                <p>
-                  <span className="text-white/60">Price:</span>{" "}
-                  <span className="text-white">
-                    ${project.price?.toLocaleString()}
-                  </span>
-                </p>
-                <p>
-                  <span className="text-white/60">Running Cost:</span>{" "}
-                  <span className="text-white">
-                    ${project.runningCost}/month
-                  </span>
-                </p>
-                <p>
-                  <span className="text-white/60">Complexity:</span>{" "}
-                  <span className="text-white">{project.complexity}</span>
-                </p>
-                <p>
-                  <span className="text-white/60">Setup Time:</span>{" "}
-                  <span className="text-white">{project.setupTime}</span>
-                </p>
-              </div>
-            </div>
-            <div>
-              <h3 className="text-white font-semibold mb-2">
-                Status & Metrics
-              </h3>
-              <div className="space-y-2 text-sm">
-                <p>
-                  <span className="text-white/60">Status:</span>{" "}
-                  <Badge
-                    className={
-                      project.status === "active"
-                        ? "bg-green-600/20 text-green-300"
-                        : "bg-yellow-600/20 text-yellow-300"
-                    }
-                  >
-                    {project.status}
-                  </Badge>
-                </p>
-                <p>
-                  <span className="text-white/60">Sales:</span>{" "}
-                  <span className="text-white">{project.sales || 0}</span>
-                </p>
-                <p>
-                  <span className="text-white/60">Revenue:</span>{" "}
-                  <span className="text-white">
-                    ${(project.revenue || 0).toLocaleString()}
-                  </span>
-                </p>
-                <p>
-                  <span className="text-white/60">Created:</span>{" "}
-                  <span className="text-white">
+            <Card className="bg-slate-800 border-white/10 text-white">
+              <CardHeader>
+                <CardTitle>Project Details</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <h4 className="text-sm font-medium">Status</h4>
+                    <p className="text-sm">
+                      {project.status === "ready"
+                        ? "Ready to Deploy"
+                        : "Idea Stage"}
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-medium">Customizable</h4>
+                    <p className="text-sm">
+                      {project.customizable === "yes"
+                        ? "Yes"
+                        : project.customizable === "no"
+                        ? "No"
+                        : "Partially"}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  {project.price && (
+                    <div>
+                      <h4 className="text-sm font-medium">Base Price</h4>
+                      <p className="text-sm">
+                        {project.price.toLocaleString()} MMK
+                      </p>
+                    </div>
+                  )}
+                  {project.estimatedCustomPrice && (
+                    <div>
+                      <h4 className="text-sm font-medium">Est. Custom Price</h4>
+                      <p className="text-sm">
+                        {project.estimatedCustomPrice.toLocaleString()} MMK
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                {project.estimatedDuration && (
+                  <div>
+                    <h4 className="text-sm font-medium">Estimated Duration</h4>
+                    <p className="text-sm">{project.estimatedDuration}</p>
+                  </div>
+                )}
+
+                <div>
+                  <h4 className="text-sm font-medium">Created</h4>
+                  <p className="text-sm">
                     {new Date(project.createdAt).toLocaleDateString()}
-                  </span>
-                </p>
-                <p>
-                  <span className="text-white/60">Updated:</span>{" "}
-                  <span className="text-white">
-                    {new Date(project.updatedAt).toLocaleDateString()}
-                  </span>
-                </p>
-              </div>
-            </div>
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-slate-800 border-white/10 text-white">
+              <CardHeader>
+                <CardTitle>Target Market</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {project.targetAudience &&
+                  project.targetAudience.length > 0 && (
+                    <div>
+                      <h4 className="text-sm font-medium">Target Audience</h4>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {project.targetAudience.map((audience) => (
+                          <Badge key={audience} variant="outline">
+                            {audience}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                {project.businessTypes && project.businessTypes.length > 0 && (
+                  <div>
+                    <h4 className="text-sm font-medium">Business Types</h4>
+                    <div className="flex flex-wrap gap-1 mt-1">
+                      {project.businessTypes.map((type) => (
+                        <Badge key={type} variant="outline">
+                          {type}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {project.tags && project.tags.length > 0 && (
+                  <div>
+                    <h4 className="text-sm font-medium">Tags</h4>
+                    <div className="flex flex-wrap gap-1 mt-1">
+                      {project.tags.map((tag) => (
+                        <Badge key={tag} variant="secondary">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           </div>
 
           {/* Description */}
-          <div>
-            <h3 className="text-white font-semibold mb-2">Description</h3>
-            <p className="text-white/80 text-sm">{project.description}</p>
-          </div>
-
-          {/* Long Description */}
-          {project.longDescription && (
-            <div>
-              <h3 className="text-white font-semibold mb-2">
-                Detailed Description
-              </h3>
-              <p className="text-white/80 text-sm">{project.longDescription}</p>
-            </div>
-          )}
-
-          {/* Technologies */}
-          <div>
-            <h3 className="text-white font-semibold mb-2">Technologies</h3>
-            <div className="flex flex-wrap gap-2">
-              {project.tech.map((tech, index) => (
-                <Badge
-                  key={index}
-                  className="bg-purple-600/20 text-purple-300 text-xs"
-                >
-                  {tech.trim()}
-                </Badge>
-              ))}
-            </div>
-          </div>
-
-          {/* Features */}
-          <div>
-            <h3 className="text-white font-semibold mb-2">Features</h3>
-            <div className="grid md:grid-cols-2 gap-2">
-              {project.features.map((feature, index) => (
-                <div key={index} className="flex items-start gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5"></div>
-                  <p className="text-white/80 text-sm">{feature.trim()}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Technical Specifications */}
-          {project.techSpecs && (
-            <div>
-              <h3 className="text-white font-semibold mb-2">
-                Technical Specifications
-              </h3>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-2 text-sm">
-                  <p>
-                    <span className="text-white/60">Frontend:</span>{" "}
-                    <span className="text-white">
-                      {project.techSpecs.frontend}
-                    </span>
-                  </p>
-                  <p>
-                    <span className="text-white/60">Backend:</span>{" "}
-                    <span className="text-white">
-                      {project.techSpecs.backend}
-                    </span>
-                  </p>
-                  <p>
-                    <span className="text-white/60">Database:</span>{" "}
-                    <span className="text-white">
-                      {project.techSpecs.database}
-                    </span>
-                  </p>
-                </div>
-                <div className="space-y-2 text-sm">
-                  <p>
-                    <span className="text-white/60">Authentication:</span>{" "}
-                    <span className="text-white">
-                      {project.techSpecs.authentication}
-                    </span>
-                  </p>
-                  <p>
-                    <span className="text-white/60">Payments:</span>{" "}
-                    <span className="text-white">
-                      {project.techSpecs.payments}
-                    </span>
-                  </p>
-                  <p>
-                    <span className="text-white/60">Deployment:</span>{" "}
-                    <span className="text-white">
-                      {project.techSpecs.deployment}
-                    </span>
-                  </p>
-                </div>
+          <Card className="bg-slate-800 border-white/10 text-white">
+            <CardHeader>
+              <CardTitle>Description</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="prose prose-sm max-w-none">
+                <p>{project.longDescription}</p>
               </div>
-            </div>
+            </CardContent>
+          </Card>
+
+          {/* Business Advantages */}
+          {project.businessAdvantages &&
+            project.businessAdvantages.length > 0 && (
+              <Card className="bg-slate-800 border-white/10 text-white">
+                <CardHeader>
+                  <CardTitle>Business Advantages</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="list-disc pl-5 space-y-2">
+                    {project.businessAdvantages.map((advantage, index) => (
+                      <li key={index}>{advantage}</li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            )}
+
+          {/* Use Cases */}
+          {project.useCases && project.useCases.length > 0 && (
+            <Card className="bg-slate-800 border-white/10 text-white">
+              <CardHeader>
+                <CardTitle>Use Cases</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="list-disc pl-5 space-y-2">
+                  {project.useCases.map((useCase, index) => (
+                    <li key={index}>{useCase}</li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
           )}
 
-          {/* System Requirements */}
-          {project.requirements && (
-            <div>
-              <h3 className="text-white font-semibold mb-2">
-                System Requirements
-              </h3>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-2 text-sm">
-                  <p>
-                    <span className="text-white/60">Server:</span>{" "}
-                    <span className="text-white">
-                      {project.requirements.server}
-                    </span>
-                  </p>
-                  <p>
-                    <span className="text-white/60">Database:</span>{" "}
-                    <span className="text-white">
-                      {project.requirements.database}
-                    </span>
-                  </p>
+          {/* Gallery */}
+          {project.galleryImages && project.galleryImages.length > 0 && (
+            <Card className="bg-slate-800 border-white/10 text-white">
+              <CardHeader>
+                <CardTitle>Gallery</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {project.galleryImages.map((image, index) => (
+                    <div
+                      key={index}
+                      className="aspect-video rounded-md overflow-hidden bg-muted"
+                    >
+                      <img
+                        src={image}
+                        alt={`${project.title} ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ))}
                 </div>
-                <div className="space-y-2 text-sm">
-                  <p>
-                    <span className="text-white/60">Storage:</span>{" "}
-                    <span className="text-white">
-                      {project.requirements.storage}
-                    </span>
-                  </p>
-                  <p>
-                    <span className="text-white/60">Bandwidth:</span>{" "}
-                    <span className="text-white">
-                      {project.requirements.bandwidth}
-                    </span>
-                  </p>
-                </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           )}
 
-          {/* What's Included */}
-          <div>
-            <h3 className="text-white font-semibold mb-2">
-              What&apos;s Included
-            </h3>
-            <div className="space-y-2">
-              {project.included.map((item, index) => (
-                <div key={index} className="flex items-start gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-green-400 mt-1.5"></div>
-                  <p className="text-white/80 text-sm">{item.trim()}</p>
+          {/* Video Demo */}
+          {project.videoDemoUrl && (
+            <Card className="bg-slate-800 border-white/10 text-white">
+              <CardHeader>
+                <CardTitle>Video Demo</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="aspect-video rounded-md overflow-hidden bg-muted">
+                  <iframe
+                    src={project.videoDemoUrl}
+                    className="w-full h-full"
+                    allowFullScreen
+                  ></iframe>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Implementation Workflow */}
-          <div>
-            <h3 className="text-white font-semibold mb-2">
-              Implementation Workflow
-            </h3>
-            <div className="space-y-2">
-              {project.workflow.map((step, index) => (
-                <div key={index} className="flex items-start gap-2">
-                  <div className="flex-shrink-0 flex items-center justify-center w-5 h-5 rounded-full bg-blue-500/20 text-blue-300 text-xs">
-                    {index + 1}
-                  </div>
-                  <p className="text-white/80 text-sm">{step.trim()}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+              </CardContent>
+            </Card>
+          )}
         </div>
+        <DialogFooter>
+          <Button
+            variant="outline"
+            onClick={onClose}
+            className="border-white/10 text-white hover:bg-white/10"
+          >
+            Close
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

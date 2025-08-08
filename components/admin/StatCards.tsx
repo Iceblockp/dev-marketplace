@@ -9,18 +9,27 @@ interface StatCardsProps {
 }
 
 export function StatCards({ projects, inquiries }: StatCardsProps) {
-  // Calculate stats
-  const totalRevenue = projects.reduce((sum, p) => sum + (p.revenue || 0), 0);
-  const totalSales = projects.reduce((sum, p) => sum + (p.sales || 0), 0);
-  const activeProjects = projects.filter((p) => p.status === "active").length;
+  // Calculate stats based on price instead of revenue
+  // Since revenue and sales aren't in the schema, we'll use price as a substitute
+  const totalRevenue = projects.reduce(
+    (sum, p) => sum + (Number(p.price) || 0),
+    0
+  );
+
+  // Since sales isn't in the schema, we'll use viewsCount as a proxy for engagement
+  const totalSales = projects.reduce((sum, p) => sum + (p.viewsCount || 0), 0);
+
+  // Update status filter from "active" to "ready" to match the schema
+  const activeProjects = projects.filter((p) => p.status === "ready").length;
   const newInquiries = inquiries.filter((i) => i.status === "new").length;
 
+  // Simulate monthly data using the same approach but with price
   const thisMonthRevenue = projects.reduce((sum, p) => {
-    return sum + (p.revenue || 0) * 0.3;
+    return sum + (Number(p.price) || 0) * 0.3;
   }, 0);
 
   const lastMonthRevenue = projects.reduce((sum, p) => {
-    return sum + (p.revenue || 0) * 0.25;
+    return sum + (Number(p.price) || 0) * 0.25;
   }, 0);
 
   const revenueGrowth =
@@ -32,7 +41,7 @@ export function StatCards({ projects, inquiries }: StatCardsProps) {
       : "0";
 
   const thisWeekSales = projects.reduce((sum, p) => {
-    return sum + Math.floor((p.sales || 0) * 0.2);
+    return sum + Math.floor((p.viewsCount || 0) * 0.2);
   }, 0);
 
   return (
@@ -57,7 +66,7 @@ export function StatCards({ projects, inquiries }: StatCardsProps) {
       <Card className="dashboard-card bg-white/5 border-white/10">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium text-white/70">
-            Total Sales
+            Total Views
           </CardTitle>
           <TrendingUp className="h-4 w-4 text-blue-400" />
         </CardHeader>
@@ -70,7 +79,7 @@ export function StatCards({ projects, inquiries }: StatCardsProps) {
       <Card className="dashboard-card bg-white/5 border-white/10">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium text-white/70">
-            Active Projects
+            Ready Projects
           </CardTitle>
           <BarChart3 className="h-4 w-4 text-purple-400" />
         </CardHeader>

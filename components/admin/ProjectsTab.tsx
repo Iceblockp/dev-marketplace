@@ -43,36 +43,23 @@ export function ProjectsTab({ projects, setProjects }: ProjectsTabProps) {
   const [previewProject, setPreviewProject] = useState<Project | null>(null);
   const [newProject, setNewProject] = useState<CreateProjectData>({
     title: "",
-    description: "",
+    shortDescription: "",
     longDescription: "",
     price: "",
-    runningCost: "",
     category: "",
-    tech: "",
-    features: "",
-    complexity: "Intermediate",
-    setupTime: "1-2 days",
-    status: "draft",
-    demoUrl: "",
-    sales: "",
-    revenue: "",
-    images: [""],
-    techSpecs: {
-      frontend: "",
-      backend: "",
-      database: "",
-      authentication: "",
-      payments: "",
-      deployment: "",
-    },
-    requirements: {
-      server: "",
-      database: "",
-      storage: "",
-      bandwidth: "",
-    },
-    included: "",
-    workflow: "",
+    status: "ready",
+    customizable: "partial",
+    estimatedCustomPrice: "",
+    estimatedDuration: "",
+    businessAdvantages: [],
+    useCases: [],
+    tags: [],
+    targetAudience: [],
+    businessTypes: [],
+    coverImage: "",
+    galleryImages: [""],
+    videoDemoUrl: "",
+    availability: true,
   });
 
   const handleAddProject = async () => {
@@ -88,36 +75,23 @@ export function ProjectsTab({ projects, setProjects }: ProjectsTabProps) {
         setProjects([...projects, project]);
         setNewProject({
           title: "",
-          description: "",
+          shortDescription: "",
           longDescription: "",
           price: "",
-          runningCost: "",
           category: "",
-          tech: "",
-          features: "",
-          complexity: "Intermediate",
-          setupTime: "1-2 days",
-          status: "draft",
-          demoUrl: "",
-          sales: "",
-          revenue: "",
-          images: [""],
-          techSpecs: {
-            frontend: "",
-            backend: "",
-            database: "",
-            authentication: "",
-            payments: "",
-            deployment: "",
-          },
-          requirements: {
-            server: "",
-            database: "",
-            storage: "",
-            bandwidth: "",
-          },
-          included: "",
-          workflow: "",
+          status: "ready",
+          customizable: "partial",
+          estimatedCustomPrice: "",
+          estimatedDuration: "",
+          businessAdvantages: [],
+          useCases: [],
+          tags: [],
+          targetAudience: [],
+          businessTypes: [],
+          coverImage: "",
+          galleryImages: [""],
+          videoDemoUrl: "",
+          availability: true,
         });
         setIsAddingProject(false);
       }
@@ -129,36 +103,28 @@ export function ProjectsTab({ projects, setProjects }: ProjectsTabProps) {
   const handleEditProject = (project: Project) => {
     setEditingProject({
       ...project,
-      tech: Array.isArray(project.tech)
-        ? project.tech.join(", ")
-        : project.tech,
-      features: Array.isArray(project.features)
-        ? project.features.join(", ")
-        : project.features,
-      included: Array.isArray(project.included)
-        ? project.included.join(", ")
-        : project.included,
-      workflow: Array.isArray(project.workflow)
-        ? project.workflow.join(", ")
-        : project.workflow,
-      price: project.price.toString(),
-      runningCost: project.runningCost.toString(),
-      sales: project.sales.toString(),
-      revenue: project.revenue.toString(),
-      techSpecs: project.techSpecs || {
-        frontend: "",
-        backend: "",
-        database: "",
-        authentication: "",
-        payments: "",
-        deployment: "",
-      },
-      requirements: project.requirements || {
-        server: "",
-        database: "",
-        storage: "",
-        bandwidth: "",
-      },
+      businessAdvantages: Array.isArray(project.businessAdvantages)
+        ? project.businessAdvantages.join(", ")
+        : project.businessAdvantages,
+      useCases: Array.isArray(project.useCases)
+        ? project.useCases.join(", ")
+        : project.useCases,
+      tags: Array.isArray(project.tags)
+        ? project.tags.join(", ")
+        : project.tags,
+      targetAudience: Array.isArray(project.targetAudience)
+        ? project.targetAudience.join(", ")
+        : project.targetAudience,
+      businessTypes: Array.isArray(project.businessTypes)
+        ? project.businessTypes.join(", ")
+        : project.businessTypes,
+      galleryImages: Array.isArray(project.galleryImages)
+        ? project.galleryImages
+        : project.galleryImages
+        ? [project.galleryImages]
+        : [""],
+      price: project.price?.toString() || "",
+      estimatedCustomPrice: project.estimatedCustomPrice?.toString() || "",
     });
   };
 
@@ -203,7 +169,7 @@ export function ProjectsTab({ projects, setProjects }: ProjectsTabProps) {
   const filteredProjects = projects.filter((project) => {
     const matchesSearch =
       project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      project.description.toLowerCase().includes(searchTerm.toLowerCase());
+      project.shortDescription.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus =
       statusFilter === "all" || project.status === statusFilter;
     return matchesSearch && matchesStatus;

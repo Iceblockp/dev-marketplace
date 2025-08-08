@@ -24,9 +24,9 @@ export function ProjectsTable({
             <th className="text-left text-white/70 pb-3">Project</th>
             <th className="text-left text-white/70 pb-3">Category</th>
             <th className="text-left text-white/70 pb-3">Price</th>
-            <th className="text-left text-white/70 pb-3">Sales</th>
-            <th className="text-left text-white/70 pb-3">Revenue</th>
+            <th className="text-left text-white/70 pb-3">Customizable</th>
             <th className="text-left text-white/70 pb-3">Status</th>
+            <th className="text-left text-white/70 pb-3">Views</th>
             <th className="text-left text-white/70 pb-3">Actions</th>
           </tr>
         </thead>
@@ -36,7 +36,9 @@ export function ProjectsTable({
               <td className="py-4">
                 <div>
                   <p className="text-white font-medium">{project.title}</p>
-                  <p className="text-white/60 text-sm">{project.description}</p>
+                  <p className="text-white/60 text-sm">
+                    {project.shortDescription}
+                  </p>
                 </div>
               </td>
               <td className="py-4">
@@ -50,23 +52,31 @@ export function ProjectsTable({
               <td className="py-4 text-white">
                 ${project.price?.toLocaleString()}
               </td>
-              <td className="py-4 text-white">{project.sales}</td>
               <td className="py-4 text-white">
-                ${project.revenue?.toLocaleString()}
+                <Badge
+                  className={
+                    project.customizable === "yes"
+                      ? "bg-green-600/20 text-green-300"
+                      : project.customizable === "no"
+                      ? "bg-red-600/20 text-red-300"
+                      : "bg-yellow-600/20 text-yellow-300"
+                  }
+                >
+                  {project.customizable}
+                </Badge>
               </td>
               <td className="py-4">
                 <Badge
                   className={
-                    project.status === "active"
+                    project.status === "ready"
                       ? "bg-green-600/20 text-green-300"
-                      : project.status === "draft"
-                      ? "bg-yellow-600/20 text-yellow-300"
-                      : "bg-gray-600/20 text-gray-300"
+                      : "bg-yellow-600/20 text-yellow-300"
                   }
                 >
                   {project.status}
                 </Badge>
               </td>
+              <td className="py-4 text-white">{project.viewsCount}</td>
               <td className="py-4">
                 <div className="flex items-center gap-2">
                   <Button

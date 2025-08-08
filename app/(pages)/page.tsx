@@ -57,9 +57,7 @@ export default function HomePage() {
       const response = await fetch("/api/projects");
       if (response.ok) {
         const data = await response.json();
-        const activeProjects = data.filter(
-          (project: Project) => project.status === "active"
-        );
+        const activeProjects = data;
         setProjects(activeProjects);
       }
     } catch (error) {
@@ -305,64 +303,6 @@ export default function HomePage() {
 
           <div className="grid lg:grid-cols-3 gap-8">
             {projects?.map((project) => (
-              // <Card
-              //   key={project.id}
-              //   className="project-card bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 group"
-              // >
-              //   <CardHeader>
-              //     <div className="flex items-center justify-between mb-2">
-              //       <Badge
-              //         variant="secondary"
-              //         className="bg-purple-600/20 text-purple-300"
-              //       >
-              //         {project.category}
-              //       </Badge>
-              //       <span className="text-2xl font-bold text-green-400">
-              //         ${project.price}
-              //       </span>
-              //     </div>
-              //     <CardTitle className="text-white text-xl group-hover:text-purple-300 transition-colors">
-              //       {project.title}
-              //     </CardTitle>
-              //     <CardDescription className="text-white/70">
-              //       {project.description}
-              //     </CardDescription>
-              //   </CardHeader>
-              //   <CardContent>
-              //     <div className="space-y-4">
-              //       <div>
-              //         <p className="text-sm text-white/60 mb-1">
-              //           Running Cost:
-              //         </p>
-              //         <p className="text-white font-semibold">
-              //           ${project.runningCost}
-              //         </p>
-              //       </div>
-              //       <div>
-              //         <p className="text-sm text-white/60 mb-2">
-              //           Technologies:
-              //         </p>
-              //         <div className="flex flex-wrap gap-2">
-              //           {project.tech.map((tech) => (
-              //             <Badge
-              //               key={tech}
-              //               variant="outline"
-              //               className="border-white/20 text-white/80"
-              //             >
-              //               {tech}
-              //             </Badge>
-              //           ))}
-              //         </div>
-              //       </div>
-              //       <Link href={`/projects/${project.id}`}>
-              //         <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
-              //           View Details
-              //           <ArrowRight className="ml-2 h-4 w-4" />
-              //         </Button>
-              //       </Link>
-              //     </div>
-              //   </CardContent>
-              // </Card>
               <ProjectCard project={project} key={project.id} />
             ))}
           </div>

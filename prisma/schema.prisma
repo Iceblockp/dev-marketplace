@@ -20,28 +20,28 @@ model User {
 }
 
 model Project {
-  id              Int      @id @default(autoincrement())
-  title           String
-  description     String
-  longDescription String?  @map("long_description")
-  price           Int
-  runningCost     Int      @map("running_cost")
-  category        String
-  tech            String[]
-  features        String[]
-  complexity      String
-  setupTime       String   @map("setup_time")
-  demoUrl         String?  @map("demo_url")
-  status          String   @default("draft")
-  sales           Int      @default(0)
-  revenue         Int      @default(0)
-  images          String[]
-  techSpecs       Json?    @map("tech_specs")
-  requirements    Json?
-  included        String[]
-  workflow        String[]
-  createdAt       DateTime @default(now()) @map("created_at")
-  updatedAt       DateTime @updatedAt @map("updated_at")
+  id                   Int            @id @default(autoincrement())
+  title                String
+  shortDescription     String         @map("short_description")
+  longDescription      String         @map("long_description")
+  category             String
+  status               ProjectStatus  @default(ready)
+  customizable         Customizable   @default(partial)
+  price                Int?
+  estimatedCustomPrice Int?           @map("estimated_custom_price")
+  estimatedDuration    String?        @map("estimated_duration")
+  businessAdvantages   String[]       @map("business_advantages")
+  useCases             String[]       @map("use_cases")
+  tags                 String[]
+  targetAudience       String[]       @map("target_audience")
+  businessTypes        String[]       @map("business_types")
+  coverImage           String?        @map("cover_image")
+  galleryImages        String[]       @map("gallery_images")
+  videoDemoUrl         String?        @map("video_demo_url")
+  availability         Boolean        @default(true)
+  viewsCount           Int            @default(0) @map("views_count")
+  createdAt            DateTime       @default(now()) @map("created_at")
+  updatedAt            DateTime       @updatedAt @map("updated_at")
 
   @@map("projects")
 }
@@ -60,4 +60,15 @@ model Inquiry {
   updatedAt   DateTime  @updatedAt @map("updated_at")
 
   @@map("inquiries")
+}
+
+enum ProjectStatus {
+  ready
+  idea
+}
+
+enum Customizable {
+  yes
+  no
+  partial
 }

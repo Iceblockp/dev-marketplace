@@ -143,7 +143,7 @@ export default function ProjectDetailPage() {
                     {project.category}
                   </Badge>
                   <Badge className="bg-green-600/80 text-white">
-                    ${project.price.toLocaleString()}
+                    ${Number(project.price).toLocaleString()}
                   </Badge>
                 </div>
 
@@ -152,26 +152,33 @@ export default function ProjectDetailPage() {
                 </h1>
 
                 <p className="text-xl text-white/80 mb-8">
-                  {project.longDescription || project.description}
+                  {project.shortDescription}
                 </p>
 
                 <div className="grid grid-cols-3 gap-6 mb-8">
                   <div className="text-center">
                     <DollarSign className="h-8 w-8 text-green-400 mx-auto mb-2" />
-                    <p className="text-white/60 text-sm">Running Cost</p>
+                    <p className="text-white/60 text-sm">Est. Price</p>
                     <p className="text-white font-bold">
-                      ${project.runningCost}/mo
+                      $
+                      {Number(
+                        project.estimatedCustomPrice || 0
+                      ).toLocaleString()}
                     </p>
                   </div>
                   <div className="text-center">
                     <Server className="h-8 w-8 text-blue-400 mx-auto mb-2" />
-                    <p className="text-white/60 text-sm">Complexity</p>
-                    <p className="text-white font-bold">{project.complexity}</p>
+                    <p className="text-white/60 text-sm">Customizable</p>
+                    <p className="text-white font-bold">
+                      {project.customizable}
+                    </p>
                   </div>
                   <div className="text-center">
                     <Clock className="h-8 w-8 text-yellow-400 mx-auto mb-2" />
-                    <p className="text-white/60 text-sm">Setup Time</p>
-                    <p className="text-white font-bold">{project.setupTime}</p>
+                    <p className="text-white/60 text-sm">Est. Duration</p>
+                    <p className="text-white font-bold">
+                      {project.estimatedDuration || "N/A"}
+                    </p>
                   </div>
                 </div>
 
@@ -185,13 +192,13 @@ export default function ProjectDetailPage() {
                       Contact to Purchase
                     </Button>
                   </Link>
-                  {project.demoUrl && (
+                  {project.videoDemoUrl && (
                     <Button
                       size="lg"
                       variant="outline"
-                      className="border-white/30 text-gray-600  hover:text-white hover:bg-white/10 px-8"
+                      className="border-white/30 text-white hover:bg-white/10 px-8"
                       onClick={() =>
-                        window.open(project.demoUrl as string, "_blank")
+                        window.open(project.videoDemoUrl as string, "_blank")
                       }
                     >
                       <Play className="mr-2 h-5 w-5" />
@@ -205,17 +212,17 @@ export default function ProjectDetailPage() {
                 <div className="aspect-video rounded-lg overflow-hidden bg-white/5 border border-white/10">
                   <img
                     src={
-                      project.images && project.images.length > 0
-                        ? project.images[activeImage]
-                        : "/placeholder.svg"
+                      project.galleryImages && project.galleryImages.length > 0
+                        ? project.galleryImages[activeImage]
+                        : project.coverImage || "/placeholder.svg"
                     }
                     alt={project.title}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                {project.images && project.images.length > 0 && (
+                {project.galleryImages && project.galleryImages.length > 0 && (
                   <div className="flex gap-2">
-                    {project.images.map((_, index) => (
+                    {project.galleryImages.map((_, index) => (
                       <button
                         key={index}
                         onClick={() => setActiveImage(index)}
@@ -226,7 +233,7 @@ export default function ProjectDetailPage() {
                         }`}
                       >
                         <img
-                          src={project.images[index]}
+                          src={project.galleryImages[index]}
                           alt={`${project.title} ${index + 1}`}
                           className="w-full h-full object-cover"
                         />
@@ -283,12 +290,12 @@ export default function ProjectDetailPage() {
                   <CardHeader>
                     <CardTitle className="text-white flex items-center">
                       <CheckCircle className="mr-2 h-5 w-5 text-green-400" />
-                      What&apos;s Included
+                      Business Advantages
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-3">
-                      {project.included.map((item, index) => (
+                      {project.businessAdvantages.map((item, index) => (
                         <li
                           key={index}
                           className="flex items-start text-white/80"
@@ -305,43 +312,21 @@ export default function ProjectDetailPage() {
                   <CardHeader>
                     <CardTitle className="text-white flex items-center">
                       <Zap className="mr-2 h-5 w-5 text-yellow-400" />
-                      Key Benefits
+                      Use Cases
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div>
-                      <h4 className="text-white font-semibold mb-2">
-                        Save Development Time
-                      </h4>
-                      <p className="text-white/70 text-sm">
-                        Skip months of development with our ready-to-deploy
-                        solution.
-                      </p>
-                    </div>
-                    <div>
-                      <h4 className="text-white font-semibold mb-2">
-                        Production Ready
-                      </h4>
-                      <p className="text-white/70 text-sm">
-                        Fully tested and optimized for production environments.
-                      </p>
-                    </div>
-                    <div>
-                      <h4 className="text-white font-semibold mb-2">
-                        Ongoing Support
-                      </h4>
-                      <p className="text-white/70 text-sm">
-                        30 days of setup support and documentation included.
-                      </p>
-                    </div>
-                    <div>
-                      <h4 className="text-white font-semibold mb-2">
-                        Customizable
-                      </h4>
-                      <p className="text-white/70 text-sm">
-                        Full source code access for complete customization.
-                      </p>
-                    </div>
+                  <CardContent>
+                    <ul className="space-y-3">
+                      {project.useCases.map((item, index) => (
+                        <li
+                          key={index}
+                          className="flex items-start text-white/80"
+                        >
+                          <CheckCircle className="mr-3 h-4 w-4 text-green-400 mt-0.5 flex-shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
                   </CardContent>
                 </Card>
               </div>
@@ -351,22 +336,44 @@ export default function ProjectDetailPage() {
               <Card className="detail-card bg-white/5 border-white/10">
                 <CardHeader>
                   <CardTitle className="text-white">
-                    Complete Feature Set
+                    Target Audience & Business Types
                   </CardTitle>
                   <CardDescription className="text-white/70">
-                    All the features you need for a successful project launch
+                    Who this project is designed for
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="grid md:grid-cols-2 gap-6">
-                    {project.features.map((feature, index) => (
-                      <div key={index} className="flex items-start">
-                        <CheckCircle className="mr-3 h-5 w-5 text-green-400 mt-0.5 flex-shrink-0" />
-                        <div>
-                          <h4 className="text-white font-medium">{feature}</h4>
-                        </div>
+                    <div>
+                      <h4 className="text-white font-medium mb-3">
+                        Target Audience
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {project.targetAudience.map((audience) => (
+                          <Badge
+                            key={audience}
+                            className="bg-purple-600/20 text-purple-300"
+                          >
+                            {audience}
+                          </Badge>
+                        ))}
                       </div>
-                    ))}
+                    </div>
+                    <div>
+                      <h4 className="text-white font-medium mb-3">
+                        Business Types
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {project.businessTypes.map((type) => (
+                          <Badge
+                            key={type}
+                            className="bg-blue-600/20 text-blue-300"
+                          >
+                            {type}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -378,66 +385,28 @@ export default function ProjectDetailPage() {
                   <CardHeader>
                     <CardTitle className="text-white flex items-center">
                       <Code className="mr-2 h-5 w-5 text-blue-400" />
-                      Technology Stack
+                      Long Description
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-4">
-                    {project.techSpecs && (
-                      <>
-                        <div>
-                          <h4 className="text-white font-semibold mb-2">
-                            Frontend
-                          </h4>
-                          <p className="text-white/70">
-                            {project.techSpecs.frontend}
-                          </p>
-                        </div>
-                        <Separator className="bg-white/10" />
-                        <div>
-                          <h4 className="text-white font-semibold mb-2">
-                            Backend
-                          </h4>
-                          <p className="text-white/70">
-                            {project.techSpecs.backend}
-                          </p>
-                        </div>
-                        <Separator className="bg-white/10" />
-                        <div>
-                          <h4 className="text-white font-semibold mb-2">
-                            Database
-                          </h4>
-                          <p className="text-white/70">
-                            {project.techSpecs.database}
-                          </p>
-                        </div>
-                        <Separator className="bg-white/10" />
-                        <div>
-                          <h4 className="text-white font-semibold mb-2">
-                            Authentication
-                          </h4>
-                          <p className="text-white/70">
-                            {project.techSpecs.authentication}
-                          </p>
-                        </div>
-                      </>
-                    )}
+                  <CardContent>
+                    <p className="text-white/70 whitespace-pre-line">
+                      {project.longDescription}
+                    </p>
                   </CardContent>
                 </Card>
 
                 <Card className="detail-card bg-white/5 border-white/10">
                   <CardHeader>
-                    <CardTitle className="text-white">
-                      Technologies Used
-                    </CardTitle>
+                    <CardTitle className="text-white">Tags</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="flex flex-wrap gap-2">
-                      {project.tech.map((tech) => (
+                      {project.tags.map((tag) => (
                         <Badge
-                          key={tech}
+                          key={tag}
                           className="bg-purple-600/20 text-purple-300"
                         >
-                          {tech}
+                          {tag}
                         </Badge>
                       ))}
                     </div>
@@ -451,39 +420,64 @@ export default function ProjectDetailPage() {
                 <CardHeader>
                   <CardTitle className="text-white flex items-center">
                     <Server className="mr-2 h-5 w-5 text-orange-400" />
-                    System Requirements
+                    Project Details
                   </CardTitle>
                   <CardDescription className="text-white/70">
-                    Minimum requirements to run this project effectively
+                    Additional information about this project
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  {project.requirements && (
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <h4 className="text-white font-semibold mb-3">
-                          Server Requirements
-                        </h4>
-                        <ul className="space-y-2 text-white/70">
-                          <li>• {project.requirements.server}</li>
-                          <li>• {project.requirements.database}</li>
-                          <li>• {project.requirements.storage}</li>
-                          <li>• {project.requirements.bandwidth}</li>
-                        </ul>
-                      </div>
-                      <div>
-                        <h4 className="text-white font-semibold mb-3">
-                          Recommended Hosting
-                        </h4>
-                        <ul className="space-y-2 text-white/70">
-                          <li>• Vercel (Frontend)</li>
-                          <li>• Railway (Database)</li>
-                          <li>• AWS/DigitalOcean (Full Stack)</li>
-                          <li>• Netlify (Static Sites)</li>
-                        </ul>
-                      </div>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="text-white font-semibold mb-3">
+                        Project Status
+                      </h4>
+                      <Badge className="bg-green-600/20 text-green-300">
+                        {project.status}
+                      </Badge>
                     </div>
-                  )}
+                    <div>
+                      <h4 className="text-white font-semibold mb-3">
+                        Customizable
+                      </h4>
+                      <Badge className="bg-blue-600/20 text-blue-300">
+                        {project.customizable}
+                      </Badge>
+                    </div>
+                    <div>
+                      <h4 className="text-white font-semibold mb-3">
+                        Base Price
+                      </h4>
+                      <p className="text-white/70">
+                        ${Number(project.price).toLocaleString()}
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="text-white font-semibold mb-3">
+                        Estimated Custom Price
+                      </h4>
+                      <p className="text-white/70">
+                        $
+                        {Number(
+                          project.estimatedCustomPrice || 0
+                        ).toLocaleString()}
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="text-white font-semibold mb-3">
+                        Estimated Duration
+                      </h4>
+                      <p className="text-white/70">
+                        {project.estimatedDuration || "N/A"}
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="text-white font-semibold mb-3">Created</h4>
+                      <p className="text-white/70">
+                        {new Date(project.createdAt).toLocaleDateString()}
+                      </p>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>
@@ -491,26 +485,31 @@ export default function ProjectDetailPage() {
             <TabsContent value="workflow" className="mt-8">
               <Card className="detail-card bg-white/5 border-white/10">
                 <CardHeader>
-                  <CardTitle className="text-white">
-                    Implementation Workflow
-                  </CardTitle>
+                  <CardTitle className="text-white">Gallery</CardTitle>
                   <CardDescription className="text-white/70">
-                    Step-by-step process from purchase to deployment
+                    Visual showcase of the project
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-6">
-                    {project.workflow.map((step, index) => (
-                      <div key={index} className="flex items-start">
-                        <div className="flex-shrink-0 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm mr-4">
-                          {index + 1}
+                  {project.galleryImages && project.galleryImages.length > 0 ? (
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                      {project.galleryImages.map((image, index) => (
+                        <div
+                          key={index}
+                          className="aspect-video rounded overflow-hidden bg-white/5 border border-white/10"
+                          onClick={() => setActiveImage(index)}
+                        >
+                          <img
+                            src={image}
+                            alt={`${project.title} screenshot ${index + 1}`}
+                            className="w-full h-full object-cover hover:scale-105 transition-transform cursor-pointer"
+                          />
                         </div>
-                        <div>
-                          <p className="text-white">{step}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-white/60">No gallery images available</p>
+                  )}
                 </CardContent>
               </Card>
             </TabsContent>
@@ -532,19 +531,20 @@ export default function ProjectDetailPage() {
             <Link href="/contact">
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 text-lg"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8"
               >
                 <MessageCircle className="mr-2 h-5 w-5" />
-                Contact to Purchase
+                Contact Us
               </Button>
             </Link>
             <Link href="/projects">
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white/30 text-gray-600 hover:text-white hover:bg-white/10 px-8 py-4 text-lg"
+                className="border-white/30 text-white hover:bg-white/10 px-8"
               >
-                Browse More Projects
+                <ArrowLeft className="mr-2 h-5 w-5" />
+                Back to Projects
               </Button>
             </Link>
           </div>

@@ -30,6 +30,36 @@ export type Project = $Result.DefaultSelection<Prisma.$ProjectPayload>
 export type Inquiry = $Result.DefaultSelection<Prisma.$InquiryPayload>
 
 /**
+ * Enums
+ */
+export namespace $Enums {
+  export const ProjectStatus: {
+  ready: 'ready',
+  idea: 'idea'
+};
+
+export type ProjectStatus = (typeof ProjectStatus)[keyof typeof ProjectStatus]
+
+
+export const Customizable: {
+  yes: 'yes',
+  no: 'no',
+  partial: 'partial'
+};
+
+export type Customizable = (typeof Customizable)[keyof typeof Customizable]
+
+}
+
+export type ProjectStatus = $Enums.ProjectStatus
+
+export const ProjectStatus: typeof $Enums.ProjectStatus
+
+export type Customizable = $Enums.Customizable
+
+export const Customizable: typeof $Enums.Customizable
+
+/**
  * ##  Prisma Client ʲˢ
  *
  * Type-safe database client for TypeScript & Node.js
@@ -2108,33 +2138,32 @@ export namespace Prisma {
   export type ProjectAvgAggregateOutputType = {
     id: number | null
     price: number | null
-    runningCost: number | null
-    sales: number | null
-    revenue: number | null
+    estimatedCustomPrice: number | null
+    viewsCount: number | null
   }
 
   export type ProjectSumAggregateOutputType = {
     id: number | null
     price: number | null
-    runningCost: number | null
-    sales: number | null
-    revenue: number | null
+    estimatedCustomPrice: number | null
+    viewsCount: number | null
   }
 
   export type ProjectMinAggregateOutputType = {
     id: number | null
     title: string | null
-    description: string | null
+    shortDescription: string | null
     longDescription: string | null
-    price: number | null
-    runningCost: number | null
     category: string | null
-    complexity: string | null
-    setupTime: string | null
-    demoUrl: string | null
-    status: string | null
-    sales: number | null
-    revenue: number | null
+    status: $Enums.ProjectStatus | null
+    customizable: $Enums.Customizable | null
+    price: number | null
+    estimatedCustomPrice: number | null
+    estimatedDuration: string | null
+    coverImage: string | null
+    videoDemoUrl: string | null
+    availability: boolean | null
+    viewsCount: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2142,17 +2171,18 @@ export namespace Prisma {
   export type ProjectMaxAggregateOutputType = {
     id: number | null
     title: string | null
-    description: string | null
+    shortDescription: string | null
     longDescription: string | null
-    price: number | null
-    runningCost: number | null
     category: string | null
-    complexity: string | null
-    setupTime: string | null
-    demoUrl: string | null
-    status: string | null
-    sales: number | null
-    revenue: number | null
+    status: $Enums.ProjectStatus | null
+    customizable: $Enums.Customizable | null
+    price: number | null
+    estimatedCustomPrice: number | null
+    estimatedDuration: string | null
+    coverImage: string | null
+    videoDemoUrl: string | null
+    availability: boolean | null
+    viewsCount: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2160,24 +2190,24 @@ export namespace Prisma {
   export type ProjectCountAggregateOutputType = {
     id: number
     title: number
-    description: number
+    shortDescription: number
     longDescription: number
-    price: number
-    runningCost: number
     category: number
-    tech: number
-    features: number
-    complexity: number
-    setupTime: number
-    demoUrl: number
     status: number
-    sales: number
-    revenue: number
-    images: number
-    techSpecs: number
-    requirements: number
-    included: number
-    workflow: number
+    customizable: number
+    price: number
+    estimatedCustomPrice: number
+    estimatedDuration: number
+    businessAdvantages: number
+    useCases: number
+    tags: number
+    targetAudience: number
+    businessTypes: number
+    coverImage: number
+    galleryImages: number
+    videoDemoUrl: number
+    availability: number
+    viewsCount: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2187,33 +2217,32 @@ export namespace Prisma {
   export type ProjectAvgAggregateInputType = {
     id?: true
     price?: true
-    runningCost?: true
-    sales?: true
-    revenue?: true
+    estimatedCustomPrice?: true
+    viewsCount?: true
   }
 
   export type ProjectSumAggregateInputType = {
     id?: true
     price?: true
-    runningCost?: true
-    sales?: true
-    revenue?: true
+    estimatedCustomPrice?: true
+    viewsCount?: true
   }
 
   export type ProjectMinAggregateInputType = {
     id?: true
     title?: true
-    description?: true
+    shortDescription?: true
     longDescription?: true
-    price?: true
-    runningCost?: true
     category?: true
-    complexity?: true
-    setupTime?: true
-    demoUrl?: true
     status?: true
-    sales?: true
-    revenue?: true
+    customizable?: true
+    price?: true
+    estimatedCustomPrice?: true
+    estimatedDuration?: true
+    coverImage?: true
+    videoDemoUrl?: true
+    availability?: true
+    viewsCount?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2221,17 +2250,18 @@ export namespace Prisma {
   export type ProjectMaxAggregateInputType = {
     id?: true
     title?: true
-    description?: true
+    shortDescription?: true
     longDescription?: true
-    price?: true
-    runningCost?: true
     category?: true
-    complexity?: true
-    setupTime?: true
-    demoUrl?: true
     status?: true
-    sales?: true
-    revenue?: true
+    customizable?: true
+    price?: true
+    estimatedCustomPrice?: true
+    estimatedDuration?: true
+    coverImage?: true
+    videoDemoUrl?: true
+    availability?: true
+    viewsCount?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2239,24 +2269,24 @@ export namespace Prisma {
   export type ProjectCountAggregateInputType = {
     id?: true
     title?: true
-    description?: true
+    shortDescription?: true
     longDescription?: true
-    price?: true
-    runningCost?: true
     category?: true
-    tech?: true
-    features?: true
-    complexity?: true
-    setupTime?: true
-    demoUrl?: true
     status?: true
-    sales?: true
-    revenue?: true
-    images?: true
-    techSpecs?: true
-    requirements?: true
-    included?: true
-    workflow?: true
+    customizable?: true
+    price?: true
+    estimatedCustomPrice?: true
+    estimatedDuration?: true
+    businessAdvantages?: true
+    useCases?: true
+    tags?: true
+    targetAudience?: true
+    businessTypes?: true
+    coverImage?: true
+    galleryImages?: true
+    videoDemoUrl?: true
+    availability?: true
+    viewsCount?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2351,24 +2381,24 @@ export namespace Prisma {
   export type ProjectGroupByOutputType = {
     id: number
     title: string
-    description: string
-    longDescription: string | null
-    price: number
-    runningCost: number
+    shortDescription: string
+    longDescription: string
     category: string
-    tech: string[]
-    features: string[]
-    complexity: string
-    setupTime: string
-    demoUrl: string | null
-    status: string
-    sales: number
-    revenue: number
-    images: string[]
-    techSpecs: JsonValue | null
-    requirements: JsonValue | null
-    included: string[]
-    workflow: string[]
+    status: $Enums.ProjectStatus
+    customizable: $Enums.Customizable
+    price: number | null
+    estimatedCustomPrice: number | null
+    estimatedDuration: string | null
+    businessAdvantages: string[]
+    useCases: string[]
+    tags: string[]
+    targetAudience: string[]
+    businessTypes: string[]
+    coverImage: string | null
+    galleryImages: string[]
+    videoDemoUrl: string | null
+    availability: boolean
+    viewsCount: number
     createdAt: Date
     updatedAt: Date
     _count: ProjectCountAggregateOutputType | null
@@ -2395,24 +2425,24 @@ export namespace Prisma {
   export type ProjectSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    description?: boolean
+    shortDescription?: boolean
     longDescription?: boolean
-    price?: boolean
-    runningCost?: boolean
     category?: boolean
-    tech?: boolean
-    features?: boolean
-    complexity?: boolean
-    setupTime?: boolean
-    demoUrl?: boolean
     status?: boolean
-    sales?: boolean
-    revenue?: boolean
-    images?: boolean
-    techSpecs?: boolean
-    requirements?: boolean
-    included?: boolean
-    workflow?: boolean
+    customizable?: boolean
+    price?: boolean
+    estimatedCustomPrice?: boolean
+    estimatedDuration?: boolean
+    businessAdvantages?: boolean
+    useCases?: boolean
+    tags?: boolean
+    targetAudience?: boolean
+    businessTypes?: boolean
+    coverImage?: boolean
+    galleryImages?: boolean
+    videoDemoUrl?: boolean
+    availability?: boolean
+    viewsCount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["project"]>
@@ -2420,24 +2450,24 @@ export namespace Prisma {
   export type ProjectSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    description?: boolean
+    shortDescription?: boolean
     longDescription?: boolean
-    price?: boolean
-    runningCost?: boolean
     category?: boolean
-    tech?: boolean
-    features?: boolean
-    complexity?: boolean
-    setupTime?: boolean
-    demoUrl?: boolean
     status?: boolean
-    sales?: boolean
-    revenue?: boolean
-    images?: boolean
-    techSpecs?: boolean
-    requirements?: boolean
-    included?: boolean
-    workflow?: boolean
+    customizable?: boolean
+    price?: boolean
+    estimatedCustomPrice?: boolean
+    estimatedDuration?: boolean
+    businessAdvantages?: boolean
+    useCases?: boolean
+    tags?: boolean
+    targetAudience?: boolean
+    businessTypes?: boolean
+    coverImage?: boolean
+    galleryImages?: boolean
+    videoDemoUrl?: boolean
+    availability?: boolean
+    viewsCount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["project"]>
@@ -2445,24 +2475,24 @@ export namespace Prisma {
   export type ProjectSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    description?: boolean
+    shortDescription?: boolean
     longDescription?: boolean
-    price?: boolean
-    runningCost?: boolean
     category?: boolean
-    tech?: boolean
-    features?: boolean
-    complexity?: boolean
-    setupTime?: boolean
-    demoUrl?: boolean
     status?: boolean
-    sales?: boolean
-    revenue?: boolean
-    images?: boolean
-    techSpecs?: boolean
-    requirements?: boolean
-    included?: boolean
-    workflow?: boolean
+    customizable?: boolean
+    price?: boolean
+    estimatedCustomPrice?: boolean
+    estimatedDuration?: boolean
+    businessAdvantages?: boolean
+    useCases?: boolean
+    tags?: boolean
+    targetAudience?: boolean
+    businessTypes?: boolean
+    coverImage?: boolean
+    galleryImages?: boolean
+    videoDemoUrl?: boolean
+    availability?: boolean
+    viewsCount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["project"]>
@@ -2470,29 +2500,29 @@ export namespace Prisma {
   export type ProjectSelectScalar = {
     id?: boolean
     title?: boolean
-    description?: boolean
+    shortDescription?: boolean
     longDescription?: boolean
-    price?: boolean
-    runningCost?: boolean
     category?: boolean
-    tech?: boolean
-    features?: boolean
-    complexity?: boolean
-    setupTime?: boolean
-    demoUrl?: boolean
     status?: boolean
-    sales?: boolean
-    revenue?: boolean
-    images?: boolean
-    techSpecs?: boolean
-    requirements?: boolean
-    included?: boolean
-    workflow?: boolean
+    customizable?: boolean
+    price?: boolean
+    estimatedCustomPrice?: boolean
+    estimatedDuration?: boolean
+    businessAdvantages?: boolean
+    useCases?: boolean
+    tags?: boolean
+    targetAudience?: boolean
+    businessTypes?: boolean
+    coverImage?: boolean
+    galleryImages?: boolean
+    videoDemoUrl?: boolean
+    availability?: boolean
+    viewsCount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ProjectOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "longDescription" | "price" | "runningCost" | "category" | "tech" | "features" | "complexity" | "setupTime" | "demoUrl" | "status" | "sales" | "revenue" | "images" | "techSpecs" | "requirements" | "included" | "workflow" | "createdAt" | "updatedAt", ExtArgs["result"]["project"]>
+  export type ProjectOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "shortDescription" | "longDescription" | "category" | "status" | "customizable" | "price" | "estimatedCustomPrice" | "estimatedDuration" | "businessAdvantages" | "useCases" | "tags" | "targetAudience" | "businessTypes" | "coverImage" | "galleryImages" | "videoDemoUrl" | "availability" | "viewsCount" | "createdAt" | "updatedAt", ExtArgs["result"]["project"]>
 
   export type $ProjectPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Project"
@@ -2500,24 +2530,24 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       title: string
-      description: string
-      longDescription: string | null
-      price: number
-      runningCost: number
+      shortDescription: string
+      longDescription: string
       category: string
-      tech: string[]
-      features: string[]
-      complexity: string
-      setupTime: string
-      demoUrl: string | null
-      status: string
-      sales: number
-      revenue: number
-      images: string[]
-      techSpecs: Prisma.JsonValue | null
-      requirements: Prisma.JsonValue | null
-      included: string[]
-      workflow: string[]
+      status: $Enums.ProjectStatus
+      customizable: $Enums.Customizable
+      price: number | null
+      estimatedCustomPrice: number | null
+      estimatedDuration: string | null
+      businessAdvantages: string[]
+      useCases: string[]
+      tags: string[]
+      targetAudience: string[]
+      businessTypes: string[]
+      coverImage: string | null
+      galleryImages: string[]
+      videoDemoUrl: string | null
+      availability: boolean
+      viewsCount: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["project"]>
@@ -2945,24 +2975,24 @@ export namespace Prisma {
   interface ProjectFieldRefs {
     readonly id: FieldRef<"Project", 'Int'>
     readonly title: FieldRef<"Project", 'String'>
-    readonly description: FieldRef<"Project", 'String'>
+    readonly shortDescription: FieldRef<"Project", 'String'>
     readonly longDescription: FieldRef<"Project", 'String'>
-    readonly price: FieldRef<"Project", 'Int'>
-    readonly runningCost: FieldRef<"Project", 'Int'>
     readonly category: FieldRef<"Project", 'String'>
-    readonly tech: FieldRef<"Project", 'String[]'>
-    readonly features: FieldRef<"Project", 'String[]'>
-    readonly complexity: FieldRef<"Project", 'String'>
-    readonly setupTime: FieldRef<"Project", 'String'>
-    readonly demoUrl: FieldRef<"Project", 'String'>
-    readonly status: FieldRef<"Project", 'String'>
-    readonly sales: FieldRef<"Project", 'Int'>
-    readonly revenue: FieldRef<"Project", 'Int'>
-    readonly images: FieldRef<"Project", 'String[]'>
-    readonly techSpecs: FieldRef<"Project", 'Json'>
-    readonly requirements: FieldRef<"Project", 'Json'>
-    readonly included: FieldRef<"Project", 'String[]'>
-    readonly workflow: FieldRef<"Project", 'String[]'>
+    readonly status: FieldRef<"Project", 'ProjectStatus'>
+    readonly customizable: FieldRef<"Project", 'Customizable'>
+    readonly price: FieldRef<"Project", 'Int'>
+    readonly estimatedCustomPrice: FieldRef<"Project", 'Int'>
+    readonly estimatedDuration: FieldRef<"Project", 'String'>
+    readonly businessAdvantages: FieldRef<"Project", 'String[]'>
+    readonly useCases: FieldRef<"Project", 'String[]'>
+    readonly tags: FieldRef<"Project", 'String[]'>
+    readonly targetAudience: FieldRef<"Project", 'String[]'>
+    readonly businessTypes: FieldRef<"Project", 'String[]'>
+    readonly coverImage: FieldRef<"Project", 'String'>
+    readonly galleryImages: FieldRef<"Project", 'String[]'>
+    readonly videoDemoUrl: FieldRef<"Project", 'String'>
+    readonly availability: FieldRef<"Project", 'Boolean'>
+    readonly viewsCount: FieldRef<"Project", 'Int'>
     readonly createdAt: FieldRef<"Project", 'DateTime'>
     readonly updatedAt: FieldRef<"Project", 'DateTime'>
   }
@@ -4467,24 +4497,24 @@ export namespace Prisma {
   export const ProjectScalarFieldEnum: {
     id: 'id',
     title: 'title',
-    description: 'description',
+    shortDescription: 'shortDescription',
     longDescription: 'longDescription',
-    price: 'price',
-    runningCost: 'runningCost',
     category: 'category',
-    tech: 'tech',
-    features: 'features',
-    complexity: 'complexity',
-    setupTime: 'setupTime',
-    demoUrl: 'demoUrl',
     status: 'status',
-    sales: 'sales',
-    revenue: 'revenue',
-    images: 'images',
-    techSpecs: 'techSpecs',
-    requirements: 'requirements',
-    included: 'included',
-    workflow: 'workflow',
+    customizable: 'customizable',
+    price: 'price',
+    estimatedCustomPrice: 'estimatedCustomPrice',
+    estimatedDuration: 'estimatedDuration',
+    businessAdvantages: 'businessAdvantages',
+    useCases: 'useCases',
+    tags: 'tags',
+    targetAudience: 'targetAudience',
+    businessTypes: 'businessTypes',
+    coverImage: 'coverImage',
+    galleryImages: 'galleryImages',
+    videoDemoUrl: 'videoDemoUrl',
+    availability: 'availability',
+    viewsCount: 'viewsCount',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -4517,29 +4547,12 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-  export const NullableJsonNullValueInput: {
-    DbNull: typeof DbNull,
-    JsonNull: typeof JsonNull
-  };
-
-  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
-
-
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
-
-  export const JsonNullValueFilter: {
-    DbNull: typeof DbNull,
-    JsonNull: typeof JsonNull,
-    AnyNull: typeof AnyNull
-  };
-
-  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   export const NullsOrder: {
@@ -4598,16 +4611,37 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Json'
+   * Reference to a field of type 'ProjectStatus'
    */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+  export type EnumProjectStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProjectStatus'>
     
 
 
   /**
-   * Reference to a field of type 'QueryMode'
+   * Reference to a field of type 'ProjectStatus[]'
    */
-  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+  export type ListEnumProjectStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProjectStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Customizable'
+   */
+  export type EnumCustomizableFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Customizable'>
+    
+
+
+  /**
+   * Reference to a field of type 'Customizable[]'
+   */
+  export type ListEnumCustomizableFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Customizable[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -4693,24 +4727,24 @@ export namespace Prisma {
     NOT?: ProjectWhereInput | ProjectWhereInput[]
     id?: IntFilter<"Project"> | number
     title?: StringFilter<"Project"> | string
-    description?: StringFilter<"Project"> | string
-    longDescription?: StringNullableFilter<"Project"> | string | null
-    price?: IntFilter<"Project"> | number
-    runningCost?: IntFilter<"Project"> | number
+    shortDescription?: StringFilter<"Project"> | string
+    longDescription?: StringFilter<"Project"> | string
     category?: StringFilter<"Project"> | string
-    tech?: StringNullableListFilter<"Project">
-    features?: StringNullableListFilter<"Project">
-    complexity?: StringFilter<"Project"> | string
-    setupTime?: StringFilter<"Project"> | string
-    demoUrl?: StringNullableFilter<"Project"> | string | null
-    status?: StringFilter<"Project"> | string
-    sales?: IntFilter<"Project"> | number
-    revenue?: IntFilter<"Project"> | number
-    images?: StringNullableListFilter<"Project">
-    techSpecs?: JsonNullableFilter<"Project">
-    requirements?: JsonNullableFilter<"Project">
-    included?: StringNullableListFilter<"Project">
-    workflow?: StringNullableListFilter<"Project">
+    status?: EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
+    customizable?: EnumCustomizableFilter<"Project"> | $Enums.Customizable
+    price?: IntNullableFilter<"Project"> | number | null
+    estimatedCustomPrice?: IntNullableFilter<"Project"> | number | null
+    estimatedDuration?: StringNullableFilter<"Project"> | string | null
+    businessAdvantages?: StringNullableListFilter<"Project">
+    useCases?: StringNullableListFilter<"Project">
+    tags?: StringNullableListFilter<"Project">
+    targetAudience?: StringNullableListFilter<"Project">
+    businessTypes?: StringNullableListFilter<"Project">
+    coverImage?: StringNullableFilter<"Project"> | string | null
+    galleryImages?: StringNullableListFilter<"Project">
+    videoDemoUrl?: StringNullableFilter<"Project"> | string | null
+    availability?: BoolFilter<"Project"> | boolean
+    viewsCount?: IntFilter<"Project"> | number
     createdAt?: DateTimeFilter<"Project"> | Date | string
     updatedAt?: DateTimeFilter<"Project"> | Date | string
   }
@@ -4718,24 +4752,24 @@ export namespace Prisma {
   export type ProjectOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrder
-    longDescription?: SortOrderInput | SortOrder
-    price?: SortOrder
-    runningCost?: SortOrder
+    shortDescription?: SortOrder
+    longDescription?: SortOrder
     category?: SortOrder
-    tech?: SortOrder
-    features?: SortOrder
-    complexity?: SortOrder
-    setupTime?: SortOrder
-    demoUrl?: SortOrderInput | SortOrder
     status?: SortOrder
-    sales?: SortOrder
-    revenue?: SortOrder
-    images?: SortOrder
-    techSpecs?: SortOrderInput | SortOrder
-    requirements?: SortOrderInput | SortOrder
-    included?: SortOrder
-    workflow?: SortOrder
+    customizable?: SortOrder
+    price?: SortOrderInput | SortOrder
+    estimatedCustomPrice?: SortOrderInput | SortOrder
+    estimatedDuration?: SortOrderInput | SortOrder
+    businessAdvantages?: SortOrder
+    useCases?: SortOrder
+    tags?: SortOrder
+    targetAudience?: SortOrder
+    businessTypes?: SortOrder
+    coverImage?: SortOrderInput | SortOrder
+    galleryImages?: SortOrder
+    videoDemoUrl?: SortOrderInput | SortOrder
+    availability?: SortOrder
+    viewsCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -4746,24 +4780,24 @@ export namespace Prisma {
     OR?: ProjectWhereInput[]
     NOT?: ProjectWhereInput | ProjectWhereInput[]
     title?: StringFilter<"Project"> | string
-    description?: StringFilter<"Project"> | string
-    longDescription?: StringNullableFilter<"Project"> | string | null
-    price?: IntFilter<"Project"> | number
-    runningCost?: IntFilter<"Project"> | number
+    shortDescription?: StringFilter<"Project"> | string
+    longDescription?: StringFilter<"Project"> | string
     category?: StringFilter<"Project"> | string
-    tech?: StringNullableListFilter<"Project">
-    features?: StringNullableListFilter<"Project">
-    complexity?: StringFilter<"Project"> | string
-    setupTime?: StringFilter<"Project"> | string
-    demoUrl?: StringNullableFilter<"Project"> | string | null
-    status?: StringFilter<"Project"> | string
-    sales?: IntFilter<"Project"> | number
-    revenue?: IntFilter<"Project"> | number
-    images?: StringNullableListFilter<"Project">
-    techSpecs?: JsonNullableFilter<"Project">
-    requirements?: JsonNullableFilter<"Project">
-    included?: StringNullableListFilter<"Project">
-    workflow?: StringNullableListFilter<"Project">
+    status?: EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
+    customizable?: EnumCustomizableFilter<"Project"> | $Enums.Customizable
+    price?: IntNullableFilter<"Project"> | number | null
+    estimatedCustomPrice?: IntNullableFilter<"Project"> | number | null
+    estimatedDuration?: StringNullableFilter<"Project"> | string | null
+    businessAdvantages?: StringNullableListFilter<"Project">
+    useCases?: StringNullableListFilter<"Project">
+    tags?: StringNullableListFilter<"Project">
+    targetAudience?: StringNullableListFilter<"Project">
+    businessTypes?: StringNullableListFilter<"Project">
+    coverImage?: StringNullableFilter<"Project"> | string | null
+    galleryImages?: StringNullableListFilter<"Project">
+    videoDemoUrl?: StringNullableFilter<"Project"> | string | null
+    availability?: BoolFilter<"Project"> | boolean
+    viewsCount?: IntFilter<"Project"> | number
     createdAt?: DateTimeFilter<"Project"> | Date | string
     updatedAt?: DateTimeFilter<"Project"> | Date | string
   }, "id">
@@ -4771,24 +4805,24 @@ export namespace Prisma {
   export type ProjectOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrder
-    longDescription?: SortOrderInput | SortOrder
-    price?: SortOrder
-    runningCost?: SortOrder
+    shortDescription?: SortOrder
+    longDescription?: SortOrder
     category?: SortOrder
-    tech?: SortOrder
-    features?: SortOrder
-    complexity?: SortOrder
-    setupTime?: SortOrder
-    demoUrl?: SortOrderInput | SortOrder
     status?: SortOrder
-    sales?: SortOrder
-    revenue?: SortOrder
-    images?: SortOrder
-    techSpecs?: SortOrderInput | SortOrder
-    requirements?: SortOrderInput | SortOrder
-    included?: SortOrder
-    workflow?: SortOrder
+    customizable?: SortOrder
+    price?: SortOrderInput | SortOrder
+    estimatedCustomPrice?: SortOrderInput | SortOrder
+    estimatedDuration?: SortOrderInput | SortOrder
+    businessAdvantages?: SortOrder
+    useCases?: SortOrder
+    tags?: SortOrder
+    targetAudience?: SortOrder
+    businessTypes?: SortOrder
+    coverImage?: SortOrderInput | SortOrder
+    galleryImages?: SortOrder
+    videoDemoUrl?: SortOrderInput | SortOrder
+    availability?: SortOrder
+    viewsCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ProjectCountOrderByAggregateInput
@@ -4804,24 +4838,24 @@ export namespace Prisma {
     NOT?: ProjectScalarWhereWithAggregatesInput | ProjectScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Project"> | number
     title?: StringWithAggregatesFilter<"Project"> | string
-    description?: StringWithAggregatesFilter<"Project"> | string
-    longDescription?: StringNullableWithAggregatesFilter<"Project"> | string | null
-    price?: IntWithAggregatesFilter<"Project"> | number
-    runningCost?: IntWithAggregatesFilter<"Project"> | number
+    shortDescription?: StringWithAggregatesFilter<"Project"> | string
+    longDescription?: StringWithAggregatesFilter<"Project"> | string
     category?: StringWithAggregatesFilter<"Project"> | string
-    tech?: StringNullableListFilter<"Project">
-    features?: StringNullableListFilter<"Project">
-    complexity?: StringWithAggregatesFilter<"Project"> | string
-    setupTime?: StringWithAggregatesFilter<"Project"> | string
-    demoUrl?: StringNullableWithAggregatesFilter<"Project"> | string | null
-    status?: StringWithAggregatesFilter<"Project"> | string
-    sales?: IntWithAggregatesFilter<"Project"> | number
-    revenue?: IntWithAggregatesFilter<"Project"> | number
-    images?: StringNullableListFilter<"Project">
-    techSpecs?: JsonNullableWithAggregatesFilter<"Project">
-    requirements?: JsonNullableWithAggregatesFilter<"Project">
-    included?: StringNullableListFilter<"Project">
-    workflow?: StringNullableListFilter<"Project">
+    status?: EnumProjectStatusWithAggregatesFilter<"Project"> | $Enums.ProjectStatus
+    customizable?: EnumCustomizableWithAggregatesFilter<"Project"> | $Enums.Customizable
+    price?: IntNullableWithAggregatesFilter<"Project"> | number | null
+    estimatedCustomPrice?: IntNullableWithAggregatesFilter<"Project"> | number | null
+    estimatedDuration?: StringNullableWithAggregatesFilter<"Project"> | string | null
+    businessAdvantages?: StringNullableListFilter<"Project">
+    useCases?: StringNullableListFilter<"Project">
+    tags?: StringNullableListFilter<"Project">
+    targetAudience?: StringNullableListFilter<"Project">
+    businessTypes?: StringNullableListFilter<"Project">
+    coverImage?: StringNullableWithAggregatesFilter<"Project"> | string | null
+    galleryImages?: StringNullableListFilter<"Project">
+    videoDemoUrl?: StringNullableWithAggregatesFilter<"Project"> | string | null
+    availability?: BoolWithAggregatesFilter<"Project"> | boolean
+    viewsCount?: IntWithAggregatesFilter<"Project"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Project"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Project"> | Date | string
   }
@@ -4972,24 +5006,24 @@ export namespace Prisma {
 
   export type ProjectCreateInput = {
     title: string
-    description: string
-    longDescription?: string | null
-    price: number
-    runningCost: number
+    shortDescription: string
+    longDescription: string
     category: string
-    tech?: ProjectCreatetechInput | string[]
-    features?: ProjectCreatefeaturesInput | string[]
-    complexity: string
-    setupTime: string
-    demoUrl?: string | null
-    status?: string
-    sales?: number
-    revenue?: number
-    images?: ProjectCreateimagesInput | string[]
-    techSpecs?: NullableJsonNullValueInput | InputJsonValue
-    requirements?: NullableJsonNullValueInput | InputJsonValue
-    included?: ProjectCreateincludedInput | string[]
-    workflow?: ProjectCreateworkflowInput | string[]
+    status?: $Enums.ProjectStatus
+    customizable?: $Enums.Customizable
+    price?: number | null
+    estimatedCustomPrice?: number | null
+    estimatedDuration?: string | null
+    businessAdvantages?: ProjectCreatebusinessAdvantagesInput | string[]
+    useCases?: ProjectCreateuseCasesInput | string[]
+    tags?: ProjectCreatetagsInput | string[]
+    targetAudience?: ProjectCreatetargetAudienceInput | string[]
+    businessTypes?: ProjectCreatebusinessTypesInput | string[]
+    coverImage?: string | null
+    galleryImages?: ProjectCreategalleryImagesInput | string[]
+    videoDemoUrl?: string | null
+    availability?: boolean
+    viewsCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4997,48 +5031,48 @@ export namespace Prisma {
   export type ProjectUncheckedCreateInput = {
     id?: number
     title: string
-    description: string
-    longDescription?: string | null
-    price: number
-    runningCost: number
+    shortDescription: string
+    longDescription: string
     category: string
-    tech?: ProjectCreatetechInput | string[]
-    features?: ProjectCreatefeaturesInput | string[]
-    complexity: string
-    setupTime: string
-    demoUrl?: string | null
-    status?: string
-    sales?: number
-    revenue?: number
-    images?: ProjectCreateimagesInput | string[]
-    techSpecs?: NullableJsonNullValueInput | InputJsonValue
-    requirements?: NullableJsonNullValueInput | InputJsonValue
-    included?: ProjectCreateincludedInput | string[]
-    workflow?: ProjectCreateworkflowInput | string[]
+    status?: $Enums.ProjectStatus
+    customizable?: $Enums.Customizable
+    price?: number | null
+    estimatedCustomPrice?: number | null
+    estimatedDuration?: string | null
+    businessAdvantages?: ProjectCreatebusinessAdvantagesInput | string[]
+    useCases?: ProjectCreateuseCasesInput | string[]
+    tags?: ProjectCreatetagsInput | string[]
+    targetAudience?: ProjectCreatetargetAudienceInput | string[]
+    businessTypes?: ProjectCreatebusinessTypesInput | string[]
+    coverImage?: string | null
+    galleryImages?: ProjectCreategalleryImagesInput | string[]
+    videoDemoUrl?: string | null
+    availability?: boolean
+    viewsCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type ProjectUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    longDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: IntFieldUpdateOperationsInput | number
-    runningCost?: IntFieldUpdateOperationsInput | number
+    shortDescription?: StringFieldUpdateOperationsInput | string
+    longDescription?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
-    tech?: ProjectUpdatetechInput | string[]
-    features?: ProjectUpdatefeaturesInput | string[]
-    complexity?: StringFieldUpdateOperationsInput | string
-    setupTime?: StringFieldUpdateOperationsInput | string
-    demoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    sales?: IntFieldUpdateOperationsInput | number
-    revenue?: IntFieldUpdateOperationsInput | number
-    images?: ProjectUpdateimagesInput | string[]
-    techSpecs?: NullableJsonNullValueInput | InputJsonValue
-    requirements?: NullableJsonNullValueInput | InputJsonValue
-    included?: ProjectUpdateincludedInput | string[]
-    workflow?: ProjectUpdateworkflowInput | string[]
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    customizable?: EnumCustomizableFieldUpdateOperationsInput | $Enums.Customizable
+    price?: NullableIntFieldUpdateOperationsInput | number | null
+    estimatedCustomPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    estimatedDuration?: NullableStringFieldUpdateOperationsInput | string | null
+    businessAdvantages?: ProjectUpdatebusinessAdvantagesInput | string[]
+    useCases?: ProjectUpdateuseCasesInput | string[]
+    tags?: ProjectUpdatetagsInput | string[]
+    targetAudience?: ProjectUpdatetargetAudienceInput | string[]
+    businessTypes?: ProjectUpdatebusinessTypesInput | string[]
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryImages?: ProjectUpdategalleryImagesInput | string[]
+    videoDemoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: BoolFieldUpdateOperationsInput | boolean
+    viewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5046,24 +5080,24 @@ export namespace Prisma {
   export type ProjectUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    longDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: IntFieldUpdateOperationsInput | number
-    runningCost?: IntFieldUpdateOperationsInput | number
+    shortDescription?: StringFieldUpdateOperationsInput | string
+    longDescription?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
-    tech?: ProjectUpdatetechInput | string[]
-    features?: ProjectUpdatefeaturesInput | string[]
-    complexity?: StringFieldUpdateOperationsInput | string
-    setupTime?: StringFieldUpdateOperationsInput | string
-    demoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    sales?: IntFieldUpdateOperationsInput | number
-    revenue?: IntFieldUpdateOperationsInput | number
-    images?: ProjectUpdateimagesInput | string[]
-    techSpecs?: NullableJsonNullValueInput | InputJsonValue
-    requirements?: NullableJsonNullValueInput | InputJsonValue
-    included?: ProjectUpdateincludedInput | string[]
-    workflow?: ProjectUpdateworkflowInput | string[]
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    customizable?: EnumCustomizableFieldUpdateOperationsInput | $Enums.Customizable
+    price?: NullableIntFieldUpdateOperationsInput | number | null
+    estimatedCustomPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    estimatedDuration?: NullableStringFieldUpdateOperationsInput | string | null
+    businessAdvantages?: ProjectUpdatebusinessAdvantagesInput | string[]
+    useCases?: ProjectUpdateuseCasesInput | string[]
+    tags?: ProjectUpdatetagsInput | string[]
+    targetAudience?: ProjectUpdatetargetAudienceInput | string[]
+    businessTypes?: ProjectUpdatebusinessTypesInput | string[]
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryImages?: ProjectUpdategalleryImagesInput | string[]
+    videoDemoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: BoolFieldUpdateOperationsInput | boolean
+    viewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5071,48 +5105,48 @@ export namespace Prisma {
   export type ProjectCreateManyInput = {
     id?: number
     title: string
-    description: string
-    longDescription?: string | null
-    price: number
-    runningCost: number
+    shortDescription: string
+    longDescription: string
     category: string
-    tech?: ProjectCreatetechInput | string[]
-    features?: ProjectCreatefeaturesInput | string[]
-    complexity: string
-    setupTime: string
-    demoUrl?: string | null
-    status?: string
-    sales?: number
-    revenue?: number
-    images?: ProjectCreateimagesInput | string[]
-    techSpecs?: NullableJsonNullValueInput | InputJsonValue
-    requirements?: NullableJsonNullValueInput | InputJsonValue
-    included?: ProjectCreateincludedInput | string[]
-    workflow?: ProjectCreateworkflowInput | string[]
+    status?: $Enums.ProjectStatus
+    customizable?: $Enums.Customizable
+    price?: number | null
+    estimatedCustomPrice?: number | null
+    estimatedDuration?: string | null
+    businessAdvantages?: ProjectCreatebusinessAdvantagesInput | string[]
+    useCases?: ProjectCreateuseCasesInput | string[]
+    tags?: ProjectCreatetagsInput | string[]
+    targetAudience?: ProjectCreatetargetAudienceInput | string[]
+    businessTypes?: ProjectCreatebusinessTypesInput | string[]
+    coverImage?: string | null
+    galleryImages?: ProjectCreategalleryImagesInput | string[]
+    videoDemoUrl?: string | null
+    availability?: boolean
+    viewsCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type ProjectUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    longDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: IntFieldUpdateOperationsInput | number
-    runningCost?: IntFieldUpdateOperationsInput | number
+    shortDescription?: StringFieldUpdateOperationsInput | string
+    longDescription?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
-    tech?: ProjectUpdatetechInput | string[]
-    features?: ProjectUpdatefeaturesInput | string[]
-    complexity?: StringFieldUpdateOperationsInput | string
-    setupTime?: StringFieldUpdateOperationsInput | string
-    demoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    sales?: IntFieldUpdateOperationsInput | number
-    revenue?: IntFieldUpdateOperationsInput | number
-    images?: ProjectUpdateimagesInput | string[]
-    techSpecs?: NullableJsonNullValueInput | InputJsonValue
-    requirements?: NullableJsonNullValueInput | InputJsonValue
-    included?: ProjectUpdateincludedInput | string[]
-    workflow?: ProjectUpdateworkflowInput | string[]
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    customizable?: EnumCustomizableFieldUpdateOperationsInput | $Enums.Customizable
+    price?: NullableIntFieldUpdateOperationsInput | number | null
+    estimatedCustomPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    estimatedDuration?: NullableStringFieldUpdateOperationsInput | string | null
+    businessAdvantages?: ProjectUpdatebusinessAdvantagesInput | string[]
+    useCases?: ProjectUpdateuseCasesInput | string[]
+    tags?: ProjectUpdatetagsInput | string[]
+    targetAudience?: ProjectUpdatetargetAudienceInput | string[]
+    businessTypes?: ProjectUpdatebusinessTypesInput | string[]
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryImages?: ProjectUpdategalleryImagesInput | string[]
+    videoDemoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: BoolFieldUpdateOperationsInput | boolean
+    viewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5120,24 +5154,24 @@ export namespace Prisma {
   export type ProjectUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    longDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: IntFieldUpdateOperationsInput | number
-    runningCost?: IntFieldUpdateOperationsInput | number
+    shortDescription?: StringFieldUpdateOperationsInput | string
+    longDescription?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
-    tech?: ProjectUpdatetechInput | string[]
-    features?: ProjectUpdatefeaturesInput | string[]
-    complexity?: StringFieldUpdateOperationsInput | string
-    setupTime?: StringFieldUpdateOperationsInput | string
-    demoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    sales?: IntFieldUpdateOperationsInput | number
-    revenue?: IntFieldUpdateOperationsInput | number
-    images?: ProjectUpdateimagesInput | string[]
-    techSpecs?: NullableJsonNullValueInput | InputJsonValue
-    requirements?: NullableJsonNullValueInput | InputJsonValue
-    included?: ProjectUpdateincludedInput | string[]
-    workflow?: ProjectUpdateworkflowInput | string[]
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    customizable?: EnumCustomizableFieldUpdateOperationsInput | $Enums.Customizable
+    price?: NullableIntFieldUpdateOperationsInput | number | null
+    estimatedCustomPrice?: NullableIntFieldUpdateOperationsInput | number | null
+    estimatedDuration?: NullableStringFieldUpdateOperationsInput | string | null
+    businessAdvantages?: ProjectUpdatebusinessAdvantagesInput | string[]
+    useCases?: ProjectUpdateuseCasesInput | string[]
+    tags?: ProjectUpdatetagsInput | string[]
+    targetAudience?: ProjectUpdatetargetAudienceInput | string[]
+    businessTypes?: ProjectUpdatebusinessTypesInput | string[]
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    galleryImages?: ProjectUpdategalleryImagesInput | string[]
+    videoDemoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: BoolFieldUpdateOperationsInput | boolean
+    viewsCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5357,6 +5391,31 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type EnumProjectStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProjectStatus | EnumProjectStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ProjectStatus[] | ListEnumProjectStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProjectStatus[] | ListEnumProjectStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumProjectStatusFilter<$PrismaModel> | $Enums.ProjectStatus
+  }
+
+  export type EnumCustomizableFilter<$PrismaModel = never> = {
+    equals?: $Enums.Customizable | EnumCustomizableFieldRefInput<$PrismaModel>
+    in?: $Enums.Customizable[] | ListEnumCustomizableFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Customizable[] | ListEnumCustomizableFieldRefInput<$PrismaModel>
+    not?: NestedEnumCustomizableFilter<$PrismaModel> | $Enums.Customizable
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -5379,28 +5438,10 @@ export namespace Prisma {
     hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
     isEmpty?: boolean
   }
-  export type JsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type SortOrderInput = {
@@ -5411,24 +5452,24 @@ export namespace Prisma {
   export type ProjectCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrder
+    shortDescription?: SortOrder
     longDescription?: SortOrder
-    price?: SortOrder
-    runningCost?: SortOrder
     category?: SortOrder
-    tech?: SortOrder
-    features?: SortOrder
-    complexity?: SortOrder
-    setupTime?: SortOrder
-    demoUrl?: SortOrder
     status?: SortOrder
-    sales?: SortOrder
-    revenue?: SortOrder
-    images?: SortOrder
-    techSpecs?: SortOrder
-    requirements?: SortOrder
-    included?: SortOrder
-    workflow?: SortOrder
+    customizable?: SortOrder
+    price?: SortOrder
+    estimatedCustomPrice?: SortOrder
+    estimatedDuration?: SortOrder
+    businessAdvantages?: SortOrder
+    useCases?: SortOrder
+    tags?: SortOrder
+    targetAudience?: SortOrder
+    businessTypes?: SortOrder
+    coverImage?: SortOrder
+    galleryImages?: SortOrder
+    videoDemoUrl?: SortOrder
+    availability?: SortOrder
+    viewsCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5436,25 +5477,25 @@ export namespace Prisma {
   export type ProjectAvgOrderByAggregateInput = {
     id?: SortOrder
     price?: SortOrder
-    runningCost?: SortOrder
-    sales?: SortOrder
-    revenue?: SortOrder
+    estimatedCustomPrice?: SortOrder
+    viewsCount?: SortOrder
   }
 
   export type ProjectMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrder
+    shortDescription?: SortOrder
     longDescription?: SortOrder
-    price?: SortOrder
-    runningCost?: SortOrder
     category?: SortOrder
-    complexity?: SortOrder
-    setupTime?: SortOrder
-    demoUrl?: SortOrder
     status?: SortOrder
-    sales?: SortOrder
-    revenue?: SortOrder
+    customizable?: SortOrder
+    price?: SortOrder
+    estimatedCustomPrice?: SortOrder
+    estimatedDuration?: SortOrder
+    coverImage?: SortOrder
+    videoDemoUrl?: SortOrder
+    availability?: SortOrder
+    viewsCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5462,17 +5503,18 @@ export namespace Prisma {
   export type ProjectMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrder
+    shortDescription?: SortOrder
     longDescription?: SortOrder
-    price?: SortOrder
-    runningCost?: SortOrder
     category?: SortOrder
-    complexity?: SortOrder
-    setupTime?: SortOrder
-    demoUrl?: SortOrder
     status?: SortOrder
-    sales?: SortOrder
-    revenue?: SortOrder
+    customizable?: SortOrder
+    price?: SortOrder
+    estimatedCustomPrice?: SortOrder
+    estimatedDuration?: SortOrder
+    coverImage?: SortOrder
+    videoDemoUrl?: SortOrder
+    availability?: SortOrder
+    viewsCount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5480,9 +5522,44 @@ export namespace Prisma {
   export type ProjectSumOrderByAggregateInput = {
     id?: SortOrder
     price?: SortOrder
-    runningCost?: SortOrder
-    sales?: SortOrder
-    revenue?: SortOrder
+    estimatedCustomPrice?: SortOrder
+    viewsCount?: SortOrder
+  }
+
+  export type EnumProjectStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProjectStatus | EnumProjectStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ProjectStatus[] | ListEnumProjectStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProjectStatus[] | ListEnumProjectStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumProjectStatusWithAggregatesFilter<$PrismaModel> | $Enums.ProjectStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumProjectStatusFilter<$PrismaModel>
+    _max?: NestedEnumProjectStatusFilter<$PrismaModel>
+  }
+
+  export type EnumCustomizableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Customizable | EnumCustomizableFieldRefInput<$PrismaModel>
+    in?: $Enums.Customizable[] | ListEnumCustomizableFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Customizable[] | ListEnumCustomizableFieldRefInput<$PrismaModel>
+    not?: NestedEnumCustomizableWithAggregatesFilter<$PrismaModel> | $Enums.Customizable
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCustomizableFilter<$PrismaModel>
+    _max?: NestedEnumCustomizableFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -5502,31 +5579,13 @@ export namespace Prisma {
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
-  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedJsonNullableFilter<$PrismaModel>
-    _max?: NestedJsonNullableFilter<$PrismaModel>
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -5620,53 +5679,82 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type ProjectCreatetechInput = {
+  export type ProjectCreatebusinessAdvantagesInput = {
     set: string[]
   }
 
-  export type ProjectCreatefeaturesInput = {
+  export type ProjectCreateuseCasesInput = {
     set: string[]
   }
 
-  export type ProjectCreateimagesInput = {
+  export type ProjectCreatetagsInput = {
     set: string[]
   }
 
-  export type ProjectCreateincludedInput = {
+  export type ProjectCreatetargetAudienceInput = {
     set: string[]
   }
 
-  export type ProjectCreateworkflowInput = {
+  export type ProjectCreatebusinessTypesInput = {
     set: string[]
+  }
+
+  export type ProjectCreategalleryImagesInput = {
+    set: string[]
+  }
+
+  export type EnumProjectStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ProjectStatus
+  }
+
+  export type EnumCustomizableFieldUpdateOperationsInput = {
+    set?: $Enums.Customizable
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
 
-  export type ProjectUpdatetechInput = {
+  export type ProjectUpdatebusinessAdvantagesInput = {
     set?: string[]
     push?: string | string[]
   }
 
-  export type ProjectUpdatefeaturesInput = {
+  export type ProjectUpdateuseCasesInput = {
     set?: string[]
     push?: string | string[]
   }
 
-  export type ProjectUpdateimagesInput = {
+  export type ProjectUpdatetagsInput = {
     set?: string[]
     push?: string | string[]
   }
 
-  export type ProjectUpdateincludedInput = {
+  export type ProjectUpdatetargetAudienceInput = {
     set?: string[]
     push?: string | string[]
   }
 
-  export type ProjectUpdateworkflowInput = {
+  export type ProjectUpdatebusinessTypesInput = {
     set?: string[]
     push?: string | string[]
+  }
+
+  export type ProjectUpdategalleryImagesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -5767,6 +5855,31 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedEnumProjectStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProjectStatus | EnumProjectStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ProjectStatus[] | ListEnumProjectStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProjectStatus[] | ListEnumProjectStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumProjectStatusFilter<$PrismaModel> | $Enums.ProjectStatus
+  }
+
+  export type NestedEnumCustomizableFilter<$PrismaModel = never> = {
+    equals?: $Enums.Customizable | EnumCustomizableFieldRefInput<$PrismaModel>
+    in?: $Enums.Customizable[] | ListEnumCustomizableFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Customizable[] | ListEnumCustomizableFieldRefInput<$PrismaModel>
+    not?: NestedEnumCustomizableFilter<$PrismaModel> | $Enums.Customizable
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -5779,6 +5892,58 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedEnumProjectStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProjectStatus | EnumProjectStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ProjectStatus[] | ListEnumProjectStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProjectStatus[] | ListEnumProjectStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumProjectStatusWithAggregatesFilter<$PrismaModel> | $Enums.ProjectStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumProjectStatusFilter<$PrismaModel>
+    _max?: NestedEnumProjectStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumCustomizableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Customizable | EnumCustomizableFieldRefInput<$PrismaModel>
+    in?: $Enums.Customizable[] | ListEnumCustomizableFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Customizable[] | ListEnumCustomizableFieldRefInput<$PrismaModel>
+    not?: NestedEnumCustomizableWithAggregatesFilter<$PrismaModel> | $Enums.Customizable
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCustomizableFilter<$PrismaModel>
+    _max?: NestedEnumCustomizableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -5798,38 +5963,12 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-  export type NestedJsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {

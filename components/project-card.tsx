@@ -9,21 +9,10 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, DollarSign, Server, Clock } from "lucide-react";
+import type { Project } from "@/types/project";
 
 interface ProjectCardProps {
-  project: {
-    id: number;
-    title: string;
-    description: string;
-    price: number;
-    runningCost: number;
-    category: string;
-    tech: string[];
-    features: string[];
-    complexity: string;
-    setupTime: string;
-    images?: string[];
-  };
+  project: Project;
   className?: string;
 }
 
@@ -34,11 +23,7 @@ export function ProjectCard({ project, className = "" }: ProjectCardProps) {
     >
       <div className="aspect-video bg-gradient-to-br from-purple-600/20 to-pink-600/20 relative overflow-hidden">
         <img
-          src={
-            project.images
-              ? project.images[0]
-              : "/placeholder.svg?height=200&width=300"
-          }
+          src={project.coverImage || "/placeholder.svg?height=200&width=300"}
           alt={project.title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
@@ -49,7 +34,7 @@ export function ProjectCard({ project, className = "" }: ProjectCardProps) {
         </div>
         <div className="absolute top-4 right-4">
           <Badge className="bg-green-600/80 text-white">
-            ${project.price.toLocaleString()}
+            ${Number(project.price).toLocaleString()}
           </Badge>
         </div>
       </div>
@@ -59,7 +44,7 @@ export function ProjectCard({ project, className = "" }: ProjectCardProps) {
           {project.title}
         </CardTitle>
         <CardDescription className="text-white/70">
-          {project.description}
+          {project.shortDescription}
         </CardDescription>
       </CardHeader>
 
@@ -68,60 +53,62 @@ export function ProjectCard({ project, className = "" }: ProjectCardProps) {
           <div className="flex items-center gap-2">
             <DollarSign className="h-4 w-4 text-green-400" />
             <div>
-              <p className="text-white/60">Running Cost</p>
+              <p className="text-white/60">Est. Price</p>
               <p className="text-white font-semibold">
-                ${project.runningCost}/mo
+                ${Number(project.estimatedCustomPrice || 0).toLocaleString()}
               </p>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <Server className="h-4 w-4 text-blue-400" />
             <div>
-              <p className="text-white/60">Complexity</p>
-              <p className="text-white font-semibold">{project.complexity}</p>
+              <p className="text-white/60">Customizable</p>
+              <p className="text-white font-semibold">{project.customizable}</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <Clock className="h-4 w-4 text-yellow-400" />
             <div>
-              <p className="text-white/60">Setup Time</p>
-              <p className="text-white font-semibold">{project.setupTime}</p>
+              <p className="text-white/60">Duration</p>
+              <p className="text-white font-semibold">
+                {project.estimatedDuration || "N/A"}
+              </p>
             </div>
           </div>
         </div>
 
         <div>
-          <p className="text-sm text-white/60 mb-2">Key Features:</p>
+          <p className="text-sm text-white/60 mb-2">Business Advantages:</p>
           <div className="flex flex-wrap gap-1">
-            {project.features.slice(0, 3).map((feature) => (
+            {project.businessAdvantages.slice(0, 3).map((advantage) => (
               <Badge
-                key={feature}
+                key={advantage}
                 variant="outline"
                 className="border-white/20 text-white/80 text-xs"
               >
-                {feature}
+                {advantage}
               </Badge>
             ))}
-            {project.features.length > 3 && (
+            {project.businessAdvantages.length > 3 && (
               <Badge
                 variant="outline"
                 className="border-white/20 text-white/80 text-xs"
               >
-                +{project.features.length - 3} more
+                +{project.businessAdvantages.length - 3} more
               </Badge>
             )}
           </div>
         </div>
 
         <div>
-          <p className="text-sm text-white/60 mb-2">Technologies:</p>
+          <p className="text-sm text-white/60 mb-2">Tags:</p>
           <div className="flex flex-wrap gap-1">
-            {project.tech.map((tech) => (
+            {project.tags.map((tag) => (
               <Badge
-                key={tech}
+                key={tag}
                 className="bg-purple-600/20 text-purple-300 text-xs"
               >
-                {tech}
+                {tag}
               </Badge>
             ))}
           </div>

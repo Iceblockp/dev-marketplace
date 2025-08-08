@@ -14,49 +14,52 @@ export interface Requirements {
   bandwidth: string;
 }
 
+export type ProjectStatus = "ready" | "idea";
+
+export type Customizable = "yes" | "no" | "partial";
+
 export interface Project {
   id: number;
   title: string;
-  description: string;
-  longDescription?: string | null;
-  price: number;
-  runningCost: number;
+  shortDescription: string;
+  longDescription: string;
   category: string;
-  tech: string[];
-  features: string[];
-  complexity: string;
-  setupTime: string;
-  images: string[];
-  demoUrl?: string | null;
-  techSpecs?: TechSpecs | null;
-  requirements?: Requirements | null;
-  included: string[];
-  workflow: string[];
-  status: string;
-  sales: number;
-  revenue: number;
+  status: ProjectStatus;
+  customizable: Customizable;
+  price?: number | null;
+  estimatedCustomPrice?: number | null;
+  estimatedDuration?: string | null;
+  businessAdvantages: string[];
+  useCases: string[];
+  tags: string[];
+  targetAudience: string[];
+  businessTypes: string[];
+  coverImage?: string | null;
+  galleryImages: string[];
+  videoDemoUrl?: string | null;
+  availability: boolean;
+  viewsCount: number;
   createdAt: Date | string;
   updatedAt: Date | string;
 }
 
 export interface CreateProjectData {
   title: string;
-  description: string;
-  longDescription?: string;
-  price: string | number;
-  runningCost: string | number;
+  shortDescription: string;
+  longDescription: string;
   category: string;
-  tech: string | string[];
-  features: string | string[];
-  complexity: string;
-  setupTime: string;
-  images?: string[];
-  demoUrl?: string;
-  techSpecs?: TechSpecs;
-  requirements?: Requirements;
-  included: string | string[];
-  workflow: string | string[];
-  status: string;
-  sales?: string | number;
-  revenue?: string | number;
+  status?: ProjectStatus;
+  customizable?: Customizable;
+  price?: string | number | null;
+  estimatedCustomPrice?: string | number | null;
+  estimatedDuration?: string | null;
+  businessAdvantages: string | string[];
+  useCases: string | string[];
+  tags: string | string[];
+  targetAudience: string | string[];
+  businessTypes: string | string[];
+  coverImage?: string | null;
+  galleryImages?: string[];
+  videoDemoUrl?: string | null;
+  availability?: boolean;
 }

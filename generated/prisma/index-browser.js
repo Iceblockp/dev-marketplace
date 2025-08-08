@@ -132,24 +132,24 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.ProjectScalarFieldEnum = {
   id: 'id',
   title: 'title',
-  description: 'description',
+  shortDescription: 'shortDescription',
   longDescription: 'longDescription',
-  price: 'price',
-  runningCost: 'runningCost',
   category: 'category',
-  tech: 'tech',
-  features: 'features',
-  complexity: 'complexity',
-  setupTime: 'setupTime',
-  demoUrl: 'demoUrl',
   status: 'status',
-  sales: 'sales',
-  revenue: 'revenue',
-  images: 'images',
-  techSpecs: 'techSpecs',
-  requirements: 'requirements',
-  included: 'included',
-  workflow: 'workflow',
+  customizable: 'customizable',
+  price: 'price',
+  estimatedCustomPrice: 'estimatedCustomPrice',
+  estimatedDuration: 'estimatedDuration',
+  businessAdvantages: 'businessAdvantages',
+  useCases: 'useCases',
+  tags: 'tags',
+  targetAudience: 'targetAudience',
+  businessTypes: 'businessTypes',
+  coverImage: 'coverImage',
+  galleryImages: 'galleryImages',
+  videoDemoUrl: 'videoDemoUrl',
+  availability: 'availability',
+  viewsCount: 'viewsCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -173,27 +173,25 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.NullableJsonNullValueInput = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull
-};
-
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
-};
-
-exports.Prisma.JsonNullValueFilter = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull,
-  AnyNull: Prisma.AnyNull
 };
 
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.ProjectStatus = exports.$Enums.ProjectStatus = {
+  ready: 'ready',
+  idea: 'idea'
+};
 
+exports.Customizable = exports.$Enums.Customizable = {
+  yes: 'yes',
+  no: 'no',
+  partial: 'partial'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',

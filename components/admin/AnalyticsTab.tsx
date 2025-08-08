@@ -6,15 +6,18 @@ interface AnalyticsTabProps {
 }
 
 export function AnalyticsTab({ projects }: AnalyticsTabProps) {
-  // Calculate stats
-  const totalRevenue = projects.reduce((sum, p) => sum + (p.revenue || 0), 0);
+  // Calculate stats based on price instead of revenue
+  const totalRevenue = projects.reduce(
+    (sum, p) => sum + (Number(p.price) || 0),
+    0
+  );
 
   const thisMonthRevenue = projects.reduce((sum, p) => {
-    return sum + (p.revenue || 0) * 0.3;
+    return sum + (Number(p.price) || 0) * 0.3;
   }, 0);
 
   const lastMonthRevenue = projects.reduce((sum, p) => {
-    return sum + (p.revenue || 0) * 0.25;
+    return sum + (Number(p.price) || 0) * 0.25;
   }, 0);
 
   const revenueGrowth =
@@ -73,7 +76,7 @@ export function AnalyticsTab({ projects }: AnalyticsTabProps) {
         <CardContent>
           <div className="space-y-4">
             {projects
-              .sort((a, b) => (b.revenue || 0) - (a.revenue || 0))
+              .sort((a, b) => (Number(b.price) || 0) - (Number(a.price) || 0))
               .slice(0, 3)
               .map((project) => (
                 <div
@@ -83,11 +86,11 @@ export function AnalyticsTab({ projects }: AnalyticsTabProps) {
                   <div>
                     <p className="text-white font-medium">{project.title}</p>
                     <p className="text-white/60 text-sm">
-                      {project.sales} sales
+                      {project.viewsCount} views
                     </p>
                   </div>
                   <span className="text-white font-bold">
-                    ${(project.revenue || 0).toLocaleString()}
+                    ${(Number(project.price) || 0).toLocaleString()}
                   </span>
                 </div>
               ))}
